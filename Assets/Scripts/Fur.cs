@@ -37,15 +37,16 @@ public class Fur : MonoBehaviour
             )
         );
 
+        Debug.Log("C(" + cleanliness + ") - D(" + dryness + "");
+ 
         UpdataSprite();
     }
 
     void UpdataSprite()
     {
-        int cleanIndex = (int)(Mathf.Min(Mathf.Round(cleanliness), 2));
-        int drynessIndex = (int)(Mathf.Min(Mathf.Round(dryness), 2));
+        int cleanIndex = GetCleanIndex();
+        int drynessIndex = GetDryIndex();
         SpriteRenderer spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
-        Debug.Log(cleanIndex);
         switch(cleanIndex){
             case 0:
                 spriteRenderer.sprite = dirtySprite;
@@ -54,6 +55,7 @@ public class Fur : MonoBehaviour
                 switch(drynessIndex){
                     case 0:
                         spriteRenderer.sprite = cleanSprite;
+                        Debug.Log(cleanIndex);
                         break;
                     case 1:
                         spriteRenderer.sprite = drySprite;
@@ -62,9 +64,9 @@ public class Fur : MonoBehaviour
                         spriteRenderer.sprite = toodrySprite;
                         break;
                 }
-                spriteRenderer.sprite = cleanSprite;
             break;
             case 2:
+                spriteRenderer.sprite = null;
                 // Delete sprite
             break;
         }
@@ -83,11 +85,11 @@ public class Fur : MonoBehaviour
 
     public int GetCleanIndex()
     {
-        return (int)(Mathf.Min(Mathf.Round(cleanliness), 2));
+        return (int)(Mathf.Min(Mathf.Floor(cleanliness), 2));
     }
     public int GetDryIndex()
     {
-        return (int)(Mathf.Min(Mathf.Round(dryness), 2));
+        return (int)(Mathf.Min(Mathf.Floor(dryness), 2));
     }
 
     float cleanliness;

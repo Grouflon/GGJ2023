@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Animal : MonoBehaviour
 {
+    public Fur[] GetFur()
+    {
+        return GetComponentsInChildren<Fur>(); 
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame

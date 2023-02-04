@@ -26,6 +26,18 @@ public class GameManager : MonoBehaviour
 
     public Animation titleAnimation;
 
+    public WindSource windSource;
+    public float defaultDamping = 10.0f;
+    public float defaultAmplitude = 2.0f;
+    public float defaultTemporalFrequency = 2.0f;
+    public float dryingWindDamping = 1.5f;
+    public float dryingWindAmplitude = 8.0f;
+    public float dryingWindTemporalFrequency = 20.0f;
+
+    public float dryingBrushRadius = 100.0f;
+    public float dryingBrushDamping = 1.5f;
+    public float dryingBrushStrength = 0.01f;
+
     T GetObjectUnderMouse<T>()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -51,6 +63,16 @@ public class GameManager : MonoBehaviour
             case GameState.Pimping : text = "Pimpage"; break;
         }
         return text;
+    }
+
+    Vector3 GetMouse3DPosition(float _z = -1.0f)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane p = new Plane(new Vector3(0.0f, 0.0f, _z), Vector3.zero);
+        float enter = 0.0f;
+        bool result = p.Raycast(ray, out enter);
+        Assert.IsTrue(result);
+        return ray.GetPoint(enter);
     }
 
     void SetState(GameState _state)
@@ -128,6 +150,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_windSourceOrigin = windSource.transform.position;
+        foreach (Fur fur in m_currentAnimal.GetFur())
+        {
+            fur.windSource = windSource;
+        }
+
         if (overrideState != GameState.None)
         {
             SetState(overrideState);
@@ -143,14 +171,40 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool windSourceLocked = false;
         switch (m_currentstate)
         {
             case GameState.Cleaning:
             {
+                windSourceLocked = Input.GetMouseButton(0);
+
+                if (windSourceLocked)
+                {
+                    foreach (Fur fur in m_currentAnimal.GetFur())
+                    {
+                        Vector3 mousePosition = GetMouse3DPosition();
+                        float distance = Vector3.Distance(mousePosition, fur.transform.position);
+                        float increment = dryingBrushStrength * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
+                        fur.IncrementClean(increment);
+                    }
+                }
             }
             break;
             case GameState.Drying:
             {
+                windSourceLocked = Input.GetMouseButton(0);
+
+                if (windSourceLocked)
+                {
+                    foreach (Fur fur in m_currentAnimal.GetFur())
+                    {
+                        Vector3 mousePosition = GetMouse3DPosition();
+                        float distance = Vector3.Distance(mousePosition, fur.transform.position);
+                        float increment = dryingBrushStrength * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
+                        fur.IncrementClean(increment);
+                    }
+                }
+                
             }
             break;
             case GameState.Pimping:
@@ -175,12 +229,7 @@ public class GameManager : MonoBehaviour
                 // DRAG
                 if (m_draggedProp != null)
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    Plane p = new Plane(new Vector3(0.0f, 0.0f, -1.0f), Vector3.zero);
-                    float enter = 0.0f;
-                    bool result = p.Raycast(ray, out enter);
-                    Assert.IsTrue(result);
-                    Vector3 point = ray.GetPoint(enter);
+                    Vector3 point = GetMouse3DPosition();
 
                     m_draggedProp.transform.position = point + m_draggedPropOffset;
                     m_draggedPropOffset = Vector3.Lerp(m_draggedPropOffset, Vector3.zero, 0.05f);
@@ -225,6 +274,35 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // WIND
+        if (windSourceLocked)
+        {
+            Vector3 point = GetMouse3DPosition();
+
+            if (!m_previousWindSourceLocked)
+            {
+                m_windSourceOffset = windSource.transform.position - point;
+            }
+            m_windSourceOffset = Vector3.Lerp(m_windSourceOffset, Vector3.zero, 0.05f);
+            windSource.transform.position = point + m_windSourceOffset;
+            //windSource.transform.position = Vector3.Lerp(windSource.transform.position, point, 0.05f);
+
+            float lerpRatio = 0.1f;
+            windSource.damping = Mathf.Lerp(windSource.damping, dryingWindDamping, lerpRatio);
+            windSource.amplitude = Mathf.Lerp(windSource.amplitude, dryingWindAmplitude, lerpRatio);
+            windSource.temporal_frequency = Mathf.Lerp(windSource.temporal_frequency, dryingWindTemporalFrequency, lerpRatio);
+        }
+        else
+        {
+            windSource.transform.position = Vector3.Lerp(windSource.transform.position, m_windSourceOrigin, 0.1f);
+
+            float lerpRatio = 0.1f;
+            windSource.damping = Mathf.Lerp(windSource.damping, defaultDamping, lerpRatio);
+            windSource.amplitude = Mathf.Lerp(windSource.amplitude, defaultAmplitude, lerpRatio);
+            windSource.temporal_frequency = Mathf.Lerp(windSource.temporal_frequency, defaultTemporalFrequency, lerpRatio);
+        }
+        m_previousWindSourceLocked = windSourceLocked;
+
         // UI
         timerText.text = m_currentTimer >= 0.0f ? Mathf.FloorToInt(m_currentTimer).ToString() : "Infinite";
         infoText.text = StateToText(m_currentstate);
@@ -238,15 +316,9 @@ public class GameManager : MonoBehaviour
         m_draggedProp = _prop;
         m_draggedProp.OnStartDrag();
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane p = new Plane(new Vector3(0.0f, 0.0f, -1.0f), Vector3.zero);
-        float enter = 0.0f;
-        bool result = p.Raycast(ray, out enter);
-        Assert.IsTrue(result);
-        Vector3 point = ray.GetPoint(enter);
+        Vector3 point = GetMouse3DPosition();
 
         m_draggedPropOffset = m_draggedProp.transform.position - point;
-
     }
 
     void onPropDragStop()
@@ -263,6 +335,12 @@ public class GameManager : MonoBehaviour
     Vector3 m_draggedPropOffset;
     GameState m_currentstate;
     GameState m_nextState;
+
+    bool m_previousWindSourceLocked = false;
+    Vector3 m_windSourceOrigin;
+    Vector3 m_windSourceOffset;
+
+    public Animal m_currentAnimal;
 
     float m_currentTimer = -1.0f;
 }

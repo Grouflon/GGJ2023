@@ -8,6 +8,7 @@ public class Prop : MonoBehaviour
     void Start()
     {
         m_origin = transform.position;
+        m_gigote = GetComponent<Gigote>();
     }
 
     // Update is called once per frame
@@ -26,6 +27,7 @@ public class Prop : MonoBehaviour
     {
         m_dragged = true;
         transform.SetParent(null);
+        m_gigote.on = false;
 
     }
 
@@ -37,8 +39,10 @@ public class Prop : MonoBehaviour
         {
             transform.SetParent(_targetAnimal.transform);
         }
+        m_gigote.on = true;
     }
 
     bool m_dragged = false;
     Vector3 m_origin;
+    Gigote m_gigote;
 }

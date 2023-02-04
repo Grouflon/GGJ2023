@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
     public float dryingWindAmplitude = 8.0f;
     public float dryingWindTemporalFrequency = 20.0f;
 
+    public float cleaningMaxVelocity = 60.0f;
+    public float cleaningBrushStrength = 0.1f;
+
     public float dryingBrushRadius = 100.0f;
     public float dryingBrushDamping = 1.5f;
     public float dryingBrushStrength = 0.01f;
@@ -150,6 +153,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_previousMousePostion = GetMouse3DPosition();
         m_windSourceOrigin = windSource.transform.position;
         foreach (Fur fur in m_currentAnimal.GetFur())
         {
@@ -171,6 +175,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 mousePosition = GetMouse3DPosition();
+        Vector3 velocity = (mousePosition - m_previousMousePostion) / Time.deltaTime;
+        Debug.Log(velocity.magnitude);
+
         bool windSourceLocked = false;
         switch (m_currentstate)
         {
@@ -182,9 +190,9 @@ public class GameManager : MonoBehaviour
                 {
                     foreach (Fur fur in m_currentAnimal.GetFur())
                     {
-                        Vector3 mousePosition = GetMouse3DPosition();
+                        float speedFactor = Mathf.Clamp01(velocity.magnitude / cleaningMaxVelocity);
                         float distance = Vector3.Distance(mousePosition, fur.transform.position);
-                        float increment = dryingBrushStrength * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
+                        float increment = speedFactor * cleaningBrushStrength * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
                         fur.IncrementClean(increment);
                     }
                 }
@@ -198,10 +206,9 @@ public class GameManager : MonoBehaviour
                 {
                     foreach (Fur fur in m_currentAnimal.GetFur())
                     {
-                        Vector3 mousePosition = GetMouse3DPosition();
                         float distance = Vector3.Distance(mousePosition, fur.transform.position);
                         float increment = dryingBrushStrength * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
-                        fur.IncrementClean(increment);
+                        fur.IncrementDry(increment);
                     }
                 }
                 
@@ -306,6 +313,8 @@ public class GameManager : MonoBehaviour
         // UI
         timerText.text = m_currentTimer >= 0.0f ? Mathf.FloorToInt(m_currentTimer).ToString() : "Infinite";
         infoText.text = StateToText(m_currentstate);
+
+        m_previousMousePostion = mousePosition;
     }
 
     void onPropDragStart(Prop _prop)
@@ -343,4 +352,5 @@ public class GameManager : MonoBehaviour
     public Animal m_currentAnimal;
 
     float m_currentTimer = -1.0f;
+    Vector3 m_previousMousePostion;
 }

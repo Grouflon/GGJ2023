@@ -78,7 +78,7 @@ public class Fur : MonoBehaviour
     }
     public void IncrementDry(float intensity)
     {
-        cleanliness += intensity;
+        dryness += intensity;
     }
 
     public int GetCleanIndex()

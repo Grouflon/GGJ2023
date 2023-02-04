@@ -6,12 +6,18 @@ public class Fur : MonoBehaviour
 {
     public WindSource windSource; 
     // Start is called before the first frame update
+
+    public Sprite cleanSprite;
+    public Sprite drySprite;
+    public Sprite toodrySprite;
+    public Sprite dirtySprite;
+
     void Start()
     {
         m_origin = transform.position;
         m_baseRotation = transform.rotation;
         rotation_biais = Random.Range(-1f, 1f);
-        cleanliness = 2;
+        cleanliness = -1;
         scale = 1;
     }
 
@@ -19,34 +25,44 @@ public class Fur : MonoBehaviour
     void Update()
     {
         // transform.rotation = m_baserotation * Quaternion.Euler(0.0f, 0.0f, 0.0f*Time.timeSinceLevelLoad);
+        float distance = Vector3.Distance(m_origin, windSource.transform.position);
+        // damping
         transform.rotation = m_baseRotation * Quaternion.Euler(
             0.0f, 0.0f,
-            windSource.amplitude * Mathf.Sin(
-                windSource.spatial_frequency * Vector3.Distance(m_origin, windSource.transform.position)
-                + windSource.temporal_frequency * Time.timeSinceLevelLoad
+            windSource.amplitude * Mathf.Exp(- distance * distance * windSource.damping) * Mathf.Sin(
+                windSource.temporal_frequency * Time.timeSinceLevelLoad
+                - windSource.spatial_frequency * distance
                 + rotation_biais * windSource.random
             )
         );
+
+        UpdataSprite();
     }
 
     void UpdataSprite()
     {
-        int cleanIndex = (int)(Mathf.Max(Mathf.Round(cleanliness), 0));
+        int cleanIndex = (int)(Mathf.Min(Mathf.Round(cleanliness), 1));
+        SpriteRenderer spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        Debug.Log(cleanIndex);
         switch(cleanIndex){
             case -1:
+                Debug.Log("OKAY");
+                spriteRenderer.sprite = dirtySprite;
             break;
             case 0:
+                Debug.Log("Hm");
+                spriteRenderer.sprite = cleanSprite;
             break;
             case 1:
-            break;
-            case 2:
+                Debug.Log("Abd");
+                // Delete sprite
             break;
         }
     }
 
     void IncrementClean(float intensity)
     {
-        cleanliness -= intensity;
+        cleanliness += intensity;
     }
 
     int GetScoreClean()

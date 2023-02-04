@@ -8,5 +8,5 @@ public class WindSource : MonoBehaviour
     public float temporal_frequency = 10.0f;
     public float amplitude = 8.0f;
     public float random = 1.0f;
-    // Start is called before the first frame update
+    public float damping = 1.0f;
 }

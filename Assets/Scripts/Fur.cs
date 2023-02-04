@@ -17,7 +17,8 @@ public class Fur : MonoBehaviour
         m_origin = transform.position;
         m_baseRotation = transform.rotation;
         rotation_biais = Random.Range(-1f, 1f);
-        cleanliness = -1;
+        cleanliness = 0;
+        dryness = 0;
         scale = 1;
     }
 
@@ -41,36 +42,56 @@ public class Fur : MonoBehaviour
 
     void UpdataSprite()
     {
-        int cleanIndex = (int)(Mathf.Min(Mathf.Round(cleanliness), 1));
+        int cleanIndex = (int)(Mathf.Min(Mathf.Round(cleanliness), 2));
+        int drynessIndex = (int)(Mathf.Min(Mathf.Round(dryness), 2));
         SpriteRenderer spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         Debug.Log(cleanIndex);
         switch(cleanIndex){
-            case -1:
-                Debug.Log("OKAY");
+            case 0:
                 spriteRenderer.sprite = dirtySprite;
             break;
-            case 0:
-                Debug.Log("Hm");
+            case 1:
+                switch(drynessIndex){
+                    case 0:
+                        spriteRenderer.sprite = cleanSprite;
+                        break;
+                    case 1:
+                        spriteRenderer.sprite = drySprite;
+                        break;
+                    case 2:
+                        spriteRenderer.sprite = toodrySprite;
+                        break;
+                }
                 spriteRenderer.sprite = cleanSprite;
             break;
-            case 1:
-                Debug.Log("Abd");
+            case 2:
                 // Delete sprite
             break;
         }
     }
 
-    void IncrementClean(float intensity)
+
+
+    public void IncrementClean(float intensity)
+    {
+        cleanliness += intensity;
+    }
+    public void IncrementDry(float intensity)
     {
         cleanliness += intensity;
     }
 
-    int GetScoreClean()
+    public int GetCleanIndex()
     {
-        return (int)(Mathf.Max(Mathf.Round(cleanliness), 0));
+        return (int)(Mathf.Min(Mathf.Round(cleanliness), 2));
+    }
+    public int GetDryIndex()
+    {
+        return (int)(Mathf.Min(Mathf.Round(dryness), 2));
     }
 
     float cleanliness;
+    float dryness;
     float scale;
 
 

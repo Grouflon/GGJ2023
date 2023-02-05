@@ -60,7 +60,7 @@ public class Fur : MonoBehaviour
                         spriteRenderer.sprite = drySprite;
                         break;
                     case 2:
-                        spriteRenderer.sprite = toodrySprite;
+                        spriteRenderer.sprite = drySprite;
                         break;
                 }
             break;

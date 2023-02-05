@@ -24,6 +24,9 @@ public class Customer : MonoBehaviour
     public string[] neutralSentences;
     public string[] successSentences;
 
+    public AudioClip bark;
+    public AudioClip animalBark;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -62,6 +62,10 @@ public class GameManager : MonoBehaviour
     public TMP_Text racineText;
     public Transform drawerPrefab;
     public Transform drawerContainer;
+    public AudioSource barkAudioSource;
+    public AudioSource toolAudioSource;
+    public AudioClip spongeSound;
+    public AudioClip dryerSound;
     
     // Start is called before the first frame update
     void Start()
@@ -89,12 +93,16 @@ public class GameManager : MonoBehaviour
             {
                 sponge.gameObject.SetActive(false);
                 Cursor.visible = true;
+
+                toolAudioSource.Stop();
             }
             break;
             case GameState.Drying:
             {
                 dryer.gameObject.SetActive(false);
                 Cursor.visible = true;
+
+                toolAudioSource.Stop();
             }
             break;
             case GameState.Pimping:
@@ -149,6 +157,8 @@ public class GameManager : MonoBehaviour
                 sponge.gameObject.SetActive(true);
                 sponge.transform.position = GetMouse3DPosition();
                 Cursor.visible = false;
+
+                toolAudioSource.clip = spongeSound;
             }
             break;
             case GameState.Drying:
@@ -159,6 +169,7 @@ public class GameManager : MonoBehaviour
                 dryer.transform.position = GetMouse3DPosition();
                 Cursor.visible = false;
                 
+                toolAudioSource.clip = dryerSound;
             }
             break;
             case GameState.Pimping:
@@ -232,6 +243,10 @@ public class GameManager : MonoBehaviour
                 // AFFECT FUR
                 if (windSourceLocked)
                 {
+                    if (!toolAudioSource.isPlaying)
+                    {
+                        toolAudioSource.Play();
+                    }
 
                     float sum_increment = 0;
                     foreach (Fur fur in m_currentAnimal.GetFur())
@@ -246,6 +261,11 @@ public class GameManager : MonoBehaviour
                     }
                     sponge.GetComponent<Sponge>().ModifyBubble(sum_increment);
 
+                    toolAudioSource.volume = sum_increment * 0.4f;
+                }
+                else
+                {
+                    toolAudioSource.Stop();
                 }
 
                 // SPONGE FOLLOW MOUSE
@@ -259,6 +279,11 @@ public class GameManager : MonoBehaviour
                 // AFFECT FUR
                 if (windSourceLocked)
                 {
+                    if (!toolAudioSource.isPlaying)
+                    {
+                        toolAudioSource.Play();
+                    }
+
                     float sum_increment = 0;
                     foreach (Fur fur in m_currentAnimal.GetFur())
                     {
@@ -270,6 +295,10 @@ public class GameManager : MonoBehaviour
                         sum_increment += increment;
                     }
                     dryer.GetComponent<Dryer>().ModifyFog(sum_increment);
+                }
+                else
+                {
+                    toolAudioSource.Stop();
                 }
 
                 // DRYER FOLLOW MOUSE
@@ -339,6 +368,8 @@ public class GameManager : MonoBehaviour
                     TMP_Text text = CustomerToText(customer);
                     text.text = rules.introSentence;
                     text.gameObject.SetActive(true);
+
+                    Bark();
                 }
 
                 if (isInPrompt && Input.GetMouseButtonDown(0))
@@ -471,6 +502,26 @@ public class GameManager : MonoBehaviour
         m_draggedProp.OnStopDrag(targetAnimal);
 
         m_draggedProp = null;
+    }
+
+    public void Bark()
+    {
+        Customer customer = customers[m_currentCustomerIndex];
+
+        float bias = 0.1f;
+        barkAudioSource.clip = customer.bark;
+        barkAudioSource.pitch = Random.Range(1f-bias, 1f+bias);
+        barkAudioSource.Play();
+    }
+
+    public void AnimalBark()
+    {
+        Customer customer = customers[m_currentCustomerIndex];
+
+        float bias = 0.1f;
+        barkAudioSource.clip = customer.animalBark;
+        barkAudioSource.pitch = Random.Range(1f-bias, 1f+bias);
+        barkAudioSource.Play();
     }
 
     Prop m_draggedProp;

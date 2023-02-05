@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+les scores sont testés en AND, à moins que min et max aient la même valeur, à ce moment là on ignore.
+pour les props, n'importe quel tag positif valide le point, mais un seul tag négatif invalide forcément le point.
+*/
+
 [System.Serializable]
 public struct Rules
 {

@@ -12,6 +12,8 @@ public enum GameState
     Pimping,
     Transition,
     Intro,
+    Outro,
+    End,
 }
 
 public class GameManager : MonoBehaviour
@@ -112,6 +114,11 @@ public class GameManager : MonoBehaviour
 
             }
             break;
+            case GameState.Outro:
+            {
+
+            }
+            break;
             default:
             {
 
@@ -174,7 +181,12 @@ public class GameManager : MonoBehaviour
                     fur.windSource = windSource;
                 }
 
-                scene.Play();
+                scene.Play("CustomerEntry");
+            }
+            break;
+            case GameState.Outro:
+            {
+                scene.Play("CustomerExit");
             }
             break;
             default:
@@ -286,6 +298,22 @@ public class GameManager : MonoBehaviour
                 
             }
             break;
+            case GameState.Outro:
+            {
+                if (!scene.isPlaying)
+                {
+                    m_currentCustomerIndex += 1;
+                    if (m_currentCustomerIndex >= customers.Length)
+                    {
+                        SetState(GameState.End);
+                    }
+                    else
+                    {
+                        SetState(GameState.Intro);
+                    }
+                }
+            }
+            break;
             default:
             {
 
@@ -305,12 +333,20 @@ public class GameManager : MonoBehaviour
                 {
                     case GameState.Cleaning: nextState = GameState.Drying; break;
                     case GameState.Drying: nextState = GameState.Pimping; break;
+                    case GameState.Pimping: nextState = GameState.Outro; break;
                 }
 
                 if (nextState != GameState.None)
                 {
-                    m_nextState = nextState;
-                    SetState(GameState.Transition);
+                    if (nextState == GameState.Outro)
+                    {
+                        SetState(GameState.Outro);
+                    }
+                    else
+                    {
+                        m_nextState = nextState;
+                        SetState(GameState.Transition);
+                    }
                 }
             }
         }

@@ -214,6 +214,8 @@ public class GameManager : MonoBehaviour
                 // AFFECT FUR
                 if (windSourceLocked)
                 {
+
+                    float sum_increment = 0;
                     foreach (Fur fur in m_currentAnimal.GetFur())
                     {
                         float speedFactor = Mathf.Clamp01(velocity.magnitude / cleaningMaxVelocity);
@@ -222,7 +224,10 @@ public class GameManager : MonoBehaviour
                                         * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
                         // Debug.Log("Incr = " + speedFactor + " . " + cleaningBrushStrength + " - " + increment);
                         fur.IncrementClean(increment);
+                        sum_increment += increment;
                     }
+                    sponge.GetComponent<Sponge>().ModifyBubble(sum_increment);
+
                 }
 
                 // SPONGE FOLLOW MOUSE
@@ -236,6 +241,7 @@ public class GameManager : MonoBehaviour
                 // AFFECT FUR
                 if (windSourceLocked)
                 {
+                    float sum_increment = 0;
                     foreach (Fur fur in m_currentAnimal.GetFur())
                     {
                         float distance = Vector3.Distance(mousePosition, fur.transform.position);
@@ -243,7 +249,9 @@ public class GameManager : MonoBehaviour
                                         * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
                         // Debug.Log("Incr = " + dryingBrushStrength + " - " + increment);
                         fur.IncrementDry(increment);
+                        sum_increment += increment;
                     }
+                    dryer.GetComponent<Dryer>().ModifyFog(sum_increment);
                 }
 
                 // DRYER FOLLOW MOUSE

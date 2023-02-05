@@ -18,7 +18,6 @@ public class Fur : MonoBehaviour
         rotation_biais = Random.Range(-1f, 1f);
         cleanliness = 0;
         dryness = 0;
-        scale = 1;
     }
 
     // Update is called once per frame
@@ -60,7 +59,7 @@ public class Fur : MonoBehaviour
                         spriteRenderer.sprite = drySprite;
                         break;
                     case 2:
-                        spriteRenderer.sprite = drySprite;
+                        spriteRenderer.sprite = toodrySprite;
                         break;
                 }
             break;
@@ -84,16 +83,28 @@ public class Fur : MonoBehaviour
 
     public int GetCleanIndex()
     {
-        return (int)(Mathf.Min(Mathf.Floor(cleanliness), 2));
+        if (cleanliness < 1)
+            return 0;
+        else if (cleanliness < nakedvalue)
+            return 1;
+        else
+            return 2;
     }
     public int GetDryIndex()
     {
-        return (int)(Mathf.Min(Mathf.Floor(dryness), 2));
+        if (dryness < 1)
+            return 0;
+        else if (dryness < burnedvalue)
+            return 1;
+        else
+            return 2;
     }
 
     float cleanliness;
     float dryness;
-    float scale;
+
+    float nakedvalue = 4;
+    float burnedvalue = 4;
 
 
     float rotation_biais;

@@ -15,6 +15,9 @@ public class Sponge : MonoBehaviour
     {
         _livetime = 0f;
         StopBubble();
+        GetComponent<SpriteRenderer>().material.renderQueue = 3500;
+        ParticleA.GetComponent<SpriteRenderer>().material.renderQueue = 3499;
+        ParticleB.GetComponent<SpriteRenderer>().material.renderQueue = 3499;
     }
     
     void Update()

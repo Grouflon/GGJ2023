@@ -89,12 +89,18 @@ public class GameManager : MonoBehaviour
             {
                 sponge.gameObject.SetActive(false);
                 Cursor.visible = true;
+                float dirty, clean, ripped;
+                dirty = clean = ripped = 0;
+                get_percentage_cleanliness(ref dirty, ref clean, ref ripped);
             }
             break;
             case GameState.Drying:
             {
                 dryer.gameObject.SetActive(false);
                 Cursor.visible = true;
+                float wet, dry, burned;
+                burned = dry = wet = 0;
+                get_percentage_dryness(ref wet, ref dry, ref burned);
             }
             break;
             case GameState.Pimping:
@@ -106,6 +112,7 @@ public class GameManager : MonoBehaviour
                 m_isInDryEnd = false;
                 m_waitForDryReset = false;
                 ClearAllChildren(drawerContainer);
+
             }
             break;
             case GameState.Transition:
@@ -474,6 +481,46 @@ public class GameManager : MonoBehaviour
         m_draggedProp.OnStopDrag(targetAnimal);
 
         m_draggedProp = null;
+    }
+
+    void get_percentage_dryness(ref float wet, ref float dry, ref float burned)
+    {
+        burned = dry = wet = 0;
+        foreach (Fur fur in m_currentAnimal.GetFur())
+        {
+            int indexdry = fur.GetDryIndex();
+            int indexclean = fur.GetCleanIndex();
+            if (indexclean == 1){
+                switch (index) {
+                    case 0: wet += 1; break;
+                    case 1: dry += 1; break;
+                    case 2: burned += 1; break;
+                }
+            }
+        }
+        float sum = wet + dry + burned;
+        if (sum != 0){
+            wet /= sum;
+            dry /= sum;
+            burned /= sum;
+        }
+    }
+    void get_percentage_cleanliness(ref float dirty, ref float clean, ref float ripped)
+    {
+        ripped = clean = dirty = 0;
+        foreach (Fur fur in m_currentAnimal.GetFur())
+        {
+            int index = fur.GetCleanIndex();
+            switch (index) {
+                case 0: dirty += 1; break;
+                case 1: clean += 1; break;
+                case 2: ripped += 1; break;
+            }
+        }
+        float sum = dirty + clean + ripped;
+        dirty /= sum;
+        clean /= sum;
+        ripped /= sum;
     }
 
     Prop m_draggedProp;

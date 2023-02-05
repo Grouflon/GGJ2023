@@ -8,7 +8,35 @@ public struct Rules
     [Header("Text")]
     public string introSentence;
 
-    [Header("Score")]
+    [Header("Clean Score")]
+    [Range(0.0f, 1.0f)]
+    public float dirtyMin;
+    [Range(0.0f, 1.0f)]
+    public float dirtyMax;
+    [Range(0.0f, 1.0f)]
+    public float cleanMin;
+    [Range(0.0f, 1.0f)]
+    public float cleanMax;
+    [Range(0.0f, 1.0f)]
+    public float rippedMin;
+    [Range(0.0f, 1.0f)]
+    public float rippedMax;
+
+    [Header("Dry Score")]
+    [Range(0.0f, 1.0f)]
+    public float wetMin;
+    [Range(0.0f, 1.0f)]
+    public float wetMax;
+    [Range(0.0f, 1.0f)]
+    public float dryMin;
+    [Range(0.0f, 1.0f)]
+    public float dryMax;
+    [Range(0.0f, 1.0f)]
+    public float burnedMin;
+    [Range(0.0f, 1.0f)]
+    public float burnedMax;
+
+    [Header("Pimp Score")]
     public string[] positivePropsTags;
     public string[] negativePropsTags;
 }

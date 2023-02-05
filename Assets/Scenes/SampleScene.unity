@@ -336,6 +336,18 @@ MonoBehaviour:
   rules:
   - introSentence: "Iphig\xE9nie au cou gracieux et d\xE9licat, rendez-lui sa superbe,
       qu\u2019on s\u2019en l\xE8che les doigts"
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0
+    cleanMax: 0
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0
+    dryMax: 0
+    burnedMin: 0
+    burnedMax: 0
     positivePropsTags: []
     negativePropsTags: []
   failSentences: []
@@ -451,8 +463,38 @@ MonoBehaviour:
   rules:
   - introSentence: "J\u2019ai toujours r\xEAv\xE9 que Georges ressemble \xE0 un pok\xE9mon
       feu !!!"
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0
+    cleanMax: 0
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0
+    dryMax: 0
+    burnedMin: 0
+    burnedMax: 0
     positivePropsTags: []
-    negativePropsTags: []
+    negativePropsTags:
+    - 
+  - introSentence: "J\u2019ai toujours r\xEAv\xE9 que Georges ressemble \xE0 un pok\xE9mon
+      feu !!!"
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0
+    cleanMax: 0
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0
+    dryMax: 0
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags: []
+    negativePropsTags:
+    - 
   failSentences: []
   neutralSentences: []
   successSentences: []
@@ -961,6 +1003,18 @@ MonoBehaviour:
   rules:
   - introSentence: "Pookie doit \xEAtre \xE0 croquer, moi j\u2019aime bien tu connais
       quand c\u2019est piment\xE9"
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0
+    cleanMax: 0
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0
+    dryMax: 0
+    burnedMin: 0
+    burnedMax: 0
     positivePropsTags: []
     negativePropsTags: []
   failSentences: []

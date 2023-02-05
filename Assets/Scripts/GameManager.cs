@@ -56,7 +56,12 @@ public class GameManager : MonoBehaviour
     public RectTransform titleClean;
     public RectTransform titleDry;
     public RectTransform titlePimp;
-
+    public RectTransform textContainer;
+    public TMP_Text ayaText;
+    public TMP_Text justineText;
+    public TMP_Text racineText;
+    public Transform drawerPrefab;
+    public Transform drawerContainer;
     
     // Start is called before the first frame update
     void Start()
@@ -98,6 +103,9 @@ public class GameManager : MonoBehaviour
                 {
                     onPropDragStop();
                 }
+                m_isInDryEnd = false;
+                m_waitForDryReset = false;
+                ClearAllChildren(drawerContainer);
             }
             break;
             case GameState.Transition:
@@ -111,7 +119,10 @@ public class GameManager : MonoBehaviour
             break;
             case GameState.Intro:
             {
-
+                textContainer.gameObject.SetActive(false);
+                ayaText.gameObject.SetActive(false);
+                justineText.gameObject.SetActive(false);
+                racineText.gameObject.SetActive(false);
             }
             break;
             case GameState.Outro:
@@ -147,11 +158,17 @@ public class GameManager : MonoBehaviour
                 dryer.gameObject.SetActive(true);
                 dryer.transform.position = GetMouse3DPosition();
                 Cursor.visible = false;
+                
             }
             break;
             case GameState.Pimping:
             {
                 m_currentTimer = pimpingTime;
+                scene.Play("DrawerIn");
+                m_waitForDryReset = true;
+
+                ClearAllChildren(drawerContainer);
+                Object.Instantiate(drawerPrefab, drawerContainer);
             }
             break;
             case GameState.Transition:
@@ -166,6 +183,7 @@ public class GameManager : MonoBehaviour
             case GameState.Intro:
             {
                 Customer customerData = customers[m_currentCustomerIndex];
+                m_currentRule = Random.Range(0, customerData.rules.Length); 
 
                 ClearAllChildren(customerContainer);
                 ClearAllChildren(animalContainer);
@@ -260,30 +278,43 @@ public class GameManager : MonoBehaviour
             break;
             case GameState.Pimping:
             {
-                // INPUT
-                if (Input.GetMouseButtonDown(0))
+                if (m_waitForDryReset && !scene.isPlaying)
                 {
-                    Prop prop = GetObjectUnderMouse<Prop>();
-                    if (prop != null)
+                    m_waitForDryReset = false;
+                    Prop[] props = FindObjectsOfType<Prop>();
+                    foreach (Prop prop in props)
                     {
-                        onPropDragStart(prop);
+                        //prop.ResetOrigin();
                     }
                 }
-                else if (Input.GetMouseButtonUp(0))
+
+                if (!m_isInDryEnd && !m_waitForDryReset)
                 {
+                    // INPUT
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Prop prop = GetObjectUnderMouse<Prop>();
+                        if (prop != null)
+                        {
+                            onPropDragStart(prop);
+                        }
+                    }
+                    else if (Input.GetMouseButtonUp(0))
+                    {
+                        if (m_draggedProp != null)
+                        {
+                            onPropDragStop();
+                        }
+                    }
+
+                    // DRAG
                     if (m_draggedProp != null)
                     {
-                        onPropDragStop();
+                        Vector3 point = GetMouse3DPosition();
+
+                        m_draggedProp.transform.position = point + m_draggedPropOffset;
+                        m_draggedPropOffset = Vector3.Lerp(m_draggedPropOffset, Vector3.zero, 0.05f);
                     }
-                }
-
-                // DRAG
-                if (m_draggedProp != null)
-                {
-                    Vector3 point = GetMouse3DPosition();
-
-                    m_draggedProp.transform.position = point + m_draggedPropOffset;
-                    m_draggedPropOffset = Vector3.Lerp(m_draggedPropOffset, Vector3.zero, 0.05f);
                 }
             }
             break;
@@ -298,12 +329,23 @@ public class GameManager : MonoBehaviour
             break;
             case GameState.Intro:
             {
-                if (!scene.isPlaying)
+                bool isInIntro = scene.isPlaying;
+                bool isInPrompt = !scene.isPlaying && textContainer.gameObject.activeSelf;
+                if (!isInIntro && !isInPrompt)
+                {
+                    textContainer.gameObject.SetActive(true);
+                    Customer customer = customers[m_currentCustomerIndex];
+                    Rules rules = customer.rules[m_currentRule];
+                    TMP_Text text = CustomerToText(customer);
+                    text.text = rules.introSentence;
+                    text.gameObject.SetActive(true);
+                }
+
+                if (isInPrompt && Input.GetMouseButtonDown(0))
                 {
                     m_nextState = GameState.Cleaning;
                     SetState(GameState.Transition);
                 }
-                
             }
             break;
             case GameState.Outro:
@@ -330,34 +372,47 @@ public class GameManager : MonoBehaviour
         }
 
         // TIME
+        bool timeHasExpired = false;
         if (m_currentTimer >= 0.0f)
         {
             m_currentTimer -= Time.deltaTime;
 
             if (m_currentTimer < 0.0f)
             {
+                timeHasExpired = true;
                 GameState nextState = GameState.None;
                 switch (m_currentstate)
                 {
                     case GameState.Cleaning: nextState = GameState.Drying; break;
                     case GameState.Drying: nextState = GameState.Pimping; break;
-                    case GameState.Pimping: nextState = GameState.Outro; break;
                 }
 
                 if (nextState != GameState.None)
                 {
-                    if (nextState == GameState.Outro)
-                    {
-                        SetState(GameState.Outro);
-                    }
-                    else
-                    {
-                        m_nextState = nextState;
-                        SetState(GameState.Transition);
-                    }
+                    m_nextState = nextState;
+                    SetState(GameState.Transition);
                 }
             }
         }
+
+        // DRAWER OUT
+        if (m_currentstate == GameState.Pimping && timeHasExpired)
+        {
+            if (m_draggedProp)
+            {
+                Prop prop = m_draggedProp;
+                onPropDragStop();
+                prop.ForceReset();
+
+            }
+            m_isInDryEnd = true;
+            scene.Play("DrawerOut");
+        }
+        if (m_isInDryEnd && !scene.isPlaying)
+        {
+            SetState(GameState.Outro);
+        }
+
 
         // WIND
         if (windSourceLocked)
@@ -389,7 +444,7 @@ public class GameManager : MonoBehaviour
         m_previousWindSourceLocked = windSourceLocked;
 
         // UI
-        timerText.text = m_currentTimer >= 0.0f ? Mathf.FloorToInt(m_currentTimer).ToString() : "Infinite";
+        timerText.text = m_currentTimer >= 0.0f ? Mathf.FloorToInt(m_currentTimer).ToString() : "";
         infoText.text = StateToText(m_currentstate);
 
         m_previousMousePostion = mousePosition;
@@ -431,7 +486,11 @@ public class GameManager : MonoBehaviour
     Vector3 m_previousMousePostion;
 
     int m_currentCustomerIndex = 0;
+    int m_currentRule = 0;
     Animal m_currentAnimal;
+
+    bool m_isInDryEnd = false;
+    bool m_waitForDryReset = false;
 
     // TOOLS
     T GetObjectUnderMouse<T>()
@@ -489,5 +548,17 @@ public class GameManager : MonoBehaviour
         {
             Object.Destroy(t.gameObject);
         }
+    }
+
+    TMP_Text CustomerToText(Customer _customer)
+    {
+        TMP_Text text = null;
+        switch (_customer.id)
+        {
+            case 0: text = justineText; break;
+            case 1: text = ayaText; break;
+            case 2 : text = racineText; break;
+        }
+        return text;
     }
 }

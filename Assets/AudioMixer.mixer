@@ -68,6 +68,7 @@ AudioMixerController:
     - 819b4f807b0ea2a49a7959a44892e541
     - a6e3be84c0074814c8446dae55d0d4a7
     - 76ab56a2a17f7ea439fcb660f66ff5f2
+    - 3a85028d6b8ef58499b6c676b50b646b
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -83,6 +84,7 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: 7381639096984558221}
   - {fileID: -1437677781946851665}
+  - {fileID: 7168016571118037427}
   m_Volume: ebb11677eacfcab4192ed5304945324d
   m_Pitch: a6645b166e56bc74ca8471965d70b25f
   m_Send: 00000000000000000000000000000000
@@ -117,8 +119,28 @@ AudioMixerSnapshotController:
   m_SnapshotID: 3c1d42de85b4ed64f88dcbf651a29119
   m_FloatValues:
     c3d6b8d30010cba49baa4e98ad8e9735: -11.944499
+    ee3af0c5c8a53da479b135e61627a22e: -6.991066
     1401a6466859f094fbd9e4c4a8f6e098: 0.64345783
   m_TransitionOverrides: {}
+--- !u!243 &7168016571118037427
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Tictac
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 3a85028d6b8ef58499b6c676b50b646b
+  m_Children: []
+  m_Volume: ee3af0c5c8a53da479b135e61627a22e
+  m_Pitch: 93c5a7fc2cc23f741ac151f5a48b8406
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 8505612362386424886}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &7381639096984558221
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -138,3 +160,17 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &8505612362386424886
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: df6d0d005f7c3cf4598bca1c68bcfc94
+  m_EffectName: Attenuation
+  m_MixLevel: d7687a0b02e819d41ba705eb3bad0f6f
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0

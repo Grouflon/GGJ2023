@@ -64,8 +64,10 @@ public class GameManager : MonoBehaviour
     public Transform drawerContainer;
     public AudioSource barkAudioSource;
     public AudioSource toolAudioSource;
+    public AudioSource tictacAudioSource;
     public AudioClip spongeSound;
     public AudioClip dryerSound;
+    public AudioClip pingAudio;
     
     // Start is called before the first frame update
     void Start()
@@ -198,6 +200,8 @@ public class GameManager : MonoBehaviour
                 RectTransform title = StateToTitle(m_nextState);
                 title.gameObject.SetActive(true);
                 titleAnimation.Play();
+
+                barkAudioSource.PlayOneShot(pingAudio);
             }
             break;
             case GameState.Intro:
@@ -418,6 +422,11 @@ public class GameManager : MonoBehaviour
         bool timeHasExpired = false;
         if (m_currentTimer >= 0.0f)
         {
+            if (!tictacAudioSource.isPlaying)
+            {
+                tictacAudioSource.Play();
+            }
+
             m_currentTimer -= Time.deltaTime;
 
             if (m_currentTimer < 0.0f)
@@ -437,6 +446,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            tictacAudioSource.Stop();
+        }
 
         // DRAWER OUT
         if (m_currentstate == GameState.Pimping && timeHasExpired)
@@ -449,6 +462,7 @@ public class GameManager : MonoBehaviour
 
             }
             m_isInDryEnd = true;
+            barkAudioSource.PlayOneShot(pingAudio);
             scene.Play("DrawerOut");
         }
         if (m_isInDryEnd && !scene.isPlaying)
@@ -521,9 +535,8 @@ public class GameManager : MonoBehaviour
         Customer customer = customers[m_currentCustomerIndex];
 
         float bias = 0.1f;
-        barkAudioSource.clip = customer.bark;
         barkAudioSource.pitch = Random.Range(1f-bias, 1f+bias);
-        barkAudioSource.Play();
+        barkAudioSource.PlayOneShot(customer.bark);
     }
 
     public void AnimalBark()
@@ -531,9 +544,8 @@ public class GameManager : MonoBehaviour
         Customer customer = customers[m_currentCustomerIndex];
 
         float bias = 0.1f;
-        barkAudioSource.clip = customer.animalBark;
         barkAudioSource.pitch = Random.Range(1f-bias, 1f+bias);
-        barkAudioSource.Play();
+        barkAudioSource.PlayOneShot(customer.animalBark);
     }
 
     void get_percentage_dryness(ref float wet, ref float dry, ref float burned)

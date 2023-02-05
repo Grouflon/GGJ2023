@@ -964,6 +964,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 911623986}
     m_Modifications:
+    - target: {fileID: 1711464969790593967, guid: 30b24e434678312448dea94f95dfd49f, type: 3}
+      propertyPath: m_Color.b
+      value: 0.76470596
+      objectReference: {fileID: 0}
+    - target: {fileID: 1711464969790593967, guid: 30b24e434678312448dea94f95dfd49f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7725491
+      objectReference: {fileID: 0}
+    - target: {fileID: 1711464969790593967, guid: 30b24e434678312448dea94f95dfd49f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.77647066
+      objectReference: {fileID: 0}
     - target: {fileID: 2238700848269880924, guid: 30b24e434678312448dea94f95dfd49f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1155,6 +1167,18 @@ PrefabInstance:
       propertyPath: sponge
       value: 
       objectReference: {fileID: 1037813181}
+    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
+      propertyPath: dryingTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
+      propertyPath: pimpingTime
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
+      propertyPath: cleaningTime
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: animalContainer
       value: 

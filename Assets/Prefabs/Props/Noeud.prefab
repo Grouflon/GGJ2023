@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 05974daa39614d74ba034f6d805a14e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ff76b2fea8bcd5438ca3803402bd527, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 5707837690296411655}
   - component: {fileID: 2820007735687798313}
   - component: {fileID: 778366984919890232}
-  - component: {fileID: 3777151892845365469}
+  - component: {fileID: 2182348673794823566}
   m_Layer: 0
-  m_Name: Prop 2
+  m_Name: Noeud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009352446, y: 0.013093114}
+  m_Offset: {x: 0.010521889, y: -0.019414708}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -158,9 +158,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0802581, y: 1.1144197}
+  m_Size: {x: 0.90753865, y: 0.83159316}
   m_EdgeRadius: 0
---- !u!114 &3777151892845365469
+--- !u!114 &2182348673794823566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,3 +172,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58429a7992c2064484f4058bdcb00e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tags: []

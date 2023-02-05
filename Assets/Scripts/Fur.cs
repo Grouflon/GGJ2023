@@ -14,7 +14,6 @@ public class Fur : MonoBehaviour
 
     void Start()
     {
-        m_origin = transform.position;
         m_baseRotation = transform.rotation;
         rotation_biais = Random.Range(-1f, 1f);
         cleanliness = 0;
@@ -26,7 +25,7 @@ public class Fur : MonoBehaviour
     void Update()
     {
         // transform.rotation = m_baserotation * Quaternion.Euler(0.0f, 0.0f, 0.0f*Time.timeSinceLevelLoad);
-        float distance = Vector3.Distance(m_origin, windSource.transform.position);
+        float distance = Vector3.Distance(transform.position, windSource.transform.position);
         // damping
         transform.rotation = m_baseRotation * Quaternion.Euler(
             0.0f, 0.0f,
@@ -37,7 +36,7 @@ public class Fur : MonoBehaviour
             )
         );
 
-        Debug.Log("C(" + cleanliness + ") - D(" + dryness + "");
+        //Debug.Log("C(" + cleanliness + ") - D(" + dryness + "");
  
         UpdataSprite();
     }
@@ -55,7 +54,7 @@ public class Fur : MonoBehaviour
                 switch(drynessIndex){
                     case 0:
                         spriteRenderer.sprite = cleanSprite;
-                        Debug.Log(cleanIndex);
+                        //Debug.Log(cleanIndex);
                         break;
                     case 1:
                         spriteRenderer.sprite = drySprite;
@@ -99,5 +98,4 @@ public class Fur : MonoBehaviour
 
     float rotation_biais;
     Quaternion m_baseRotation;
-    Vector3 m_origin;
 }

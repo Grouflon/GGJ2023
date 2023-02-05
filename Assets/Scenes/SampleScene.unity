@@ -1583,7 +1583,7 @@ PrefabInstance:
       objectReference: {fileID: 1552609904}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: dryingTime
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: titleClean
@@ -1591,11 +1591,11 @@ PrefabInstance:
       objectReference: {fileID: 1997515554}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: pimpingTime
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: cleaningTime
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: animalContainer

@@ -1666,9 +1666,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideState: 0
-  cleaningTime: 5
-  dryingTime: 5
-  pimpingTime: 5
+  cleaningTime: 0
+  dryingTime: 0
+  pimpingTime: -1
   customers:
   - {fileID: 0}
   - {fileID: 0}
@@ -1708,6 +1708,8 @@ MonoBehaviour:
   spongeSound: {fileID: 8300000, guid: 7bfce98c059a4034e807e1fc6bd4b891, type: 3}
   dryerSound: {fileID: 8300000, guid: 8392cbc1f690044469c933f37800ab14, type: 3}
   pingAudio: {fileID: 8300000, guid: 6a72d345edceade4994d29569919099d, type: 3}
+  takeAudio: {fileID: 8300000, guid: 8e77190f035908247bb5d6c3d7f4a412, type: 3}
+  dropAudio: {fileID: 8300000, guid: 18b0493943deb2d4886dd2de430f87ff, type: 3}
 --- !u!111 &1004594799
 Animation:
   m_ObjectHideFlags: 0

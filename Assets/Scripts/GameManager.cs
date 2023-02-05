@@ -60,14 +60,18 @@ public class GameManager : MonoBehaviour
     public TMP_Text ayaText;
     public TMP_Text justineText;
     public TMP_Text racineText;
-    public Transform drawerPrefab;
-    public Transform drawerContainer;
+    public Transform drawerPrefabRight;
+    public Transform drawerPrefabLeft;
+    public Transform drawerContainerLeft;
+    public Transform drawerContainerRight;
     public AudioSource barkAudioSource;
     public AudioSource toolAudioSource;
     public AudioSource tictacAudioSource;
     public AudioClip spongeSound;
     public AudioClip dryerSound;
     public AudioClip pingAudio;
+    public AudioClip takeAudio;
+    public AudioClip dropAudio;
     
     // Start is called before the first frame update
     void Start()
@@ -123,7 +127,8 @@ public class GameManager : MonoBehaviour
                 }
                 m_isInDryEnd = false;
                 m_waitForDryReset = false;
-                ClearAllChildren(drawerContainer);
+                ClearAllChildren(drawerContainerLeft);
+                ClearAllChildren(drawerContainerRight);
 
             }
             break;
@@ -189,8 +194,10 @@ public class GameManager : MonoBehaviour
                 scene.Play("DrawerIn");
                 m_waitForDryReset = true;
 
-                ClearAllChildren(drawerContainer);
-                Object.Instantiate(drawerPrefab, drawerContainer);
+                ClearAllChildren(drawerContainerLeft);
+                ClearAllChildren(drawerContainerRight);
+                Object.Instantiate(drawerPrefabLeft, drawerContainerLeft);
+                Object.Instantiate(drawerPrefabRight, drawerContainerRight);
             }
             break;
             case GameState.Transition:
@@ -518,6 +525,8 @@ public class GameManager : MonoBehaviour
         Vector3 point = GetMouse3DPosition();
 
         m_draggedPropOffset = m_draggedProp.transform.position - point;
+
+        barkAudioSource.PlayOneShot(takeAudio);
     }
 
     void onPropDragStop()
@@ -528,6 +537,8 @@ public class GameManager : MonoBehaviour
         m_draggedProp.OnStopDrag(targetAnimal);
 
         m_draggedProp = null;
+
+        barkAudioSource.PlayOneShot(dropAudio);
     }
 
     public void Bark()

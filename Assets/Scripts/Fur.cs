@@ -24,7 +24,16 @@ public class Fur : MonoBehaviour
     void Update()
     {
         // transform.rotation = m_baserotation * Quaternion.Euler(0.0f, 0.0f, 0.0f*Time.timeSinceLevelLoad);
-        float distance = Vector3.Distance(transform.position, windSource.transform.position);
+        /*Vector3 fur_position = transform.position;
+        fur_position.z = 0f;
+        Vector3 wind_position = windSource.transform.position;
+        wind_position.z = 0f;
+        float distance = Vector3.Distance(fur_position, wind_position);*/
+
+        float distance = Mathf.Sqrt(
+            Mathf.Pow(transform.position.x- windSource.transform.position.x, 2)
+            + Mathf.Pow(transform.position.y- windSource.transform.position.y, 2));
+
         // damping
         transform.rotation = m_baseRotation * Quaternion.Euler(
             0.0f, 0.0f,
@@ -34,8 +43,6 @@ public class Fur : MonoBehaviour
                 + rotation_biais * windSource.random
             )
         );
-
-        //Debug.Log("C(" + cleanliness + ") - D(" + dryness + "");
  
         UpdataSprite();
     }
@@ -105,7 +112,6 @@ public class Fur : MonoBehaviour
 
     float nakedvalue = 4;
     float burnedvalue = 4;
-
 
     float rotation_biais;
     Quaternion m_baseRotation;

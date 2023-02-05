@@ -220,7 +220,6 @@ public class GameManager : MonoBehaviour
     {
         Vector3 mousePosition = GetMouse3DPosition();
         Vector3 velocity = (mousePosition - m_previousMousePostion) / Time.deltaTime;
-        // Debug.Log(velocity.magnitude);
 
         bool windSourceLocked = false;
         switch (m_currentstate)
@@ -237,10 +236,12 @@ public class GameManager : MonoBehaviour
                     foreach (Fur fur in m_currentAnimal.GetFur())
                     {
                         float speedFactor = Mathf.Clamp01(velocity.magnitude / cleaningMaxVelocity);
-                        float distance = Vector3.Distance(mousePosition, fur.transform.position);
+                        float distance = Mathf.Sqrt(
+                            Mathf.Pow(mousePosition.x- fur.transform.position.x, 2)
+                            + Mathf.Pow(mousePosition.y- fur.transform.position.y, 2));
+                        // float distance = Vector3.Distance(mousePosition, fur.transform.position);
                         float increment = speedFactor * cleaningBrushStrength
                                         * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
-                        // Debug.Log("Incr = " + speedFactor + " . " + cleaningBrushStrength + " - " + increment);
                         fur.IncrementClean(increment);
                         sum_increment += increment;
                     }
@@ -262,10 +263,12 @@ public class GameManager : MonoBehaviour
                     float sum_increment = 0;
                     foreach (Fur fur in m_currentAnimal.GetFur())
                     {
-                        float distance = Vector3.Distance(mousePosition, fur.transform.position);
+                        float distance = Mathf.Sqrt(
+                            Mathf.Pow(mousePosition.x- fur.transform.position.x, 2)
+                            + Mathf.Pow(mousePosition.y- fur.transform.position.y, 2));
+                        // float distance = Vector3.Distance(mousePosition, fur.transform.position);
                         float increment = dryingBrushStrength
                                         * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
-                        // Debug.Log("Incr = " + dryingBrushStrength + " - " + increment);
                         fur.IncrementDry(increment);
                         sum_increment += increment;
                     }

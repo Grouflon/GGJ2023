@@ -10,30 +10,22 @@ public enum GameState
     Cleaning,
     Drying,
     Pimping,
-    Transition
+    Transition,
+    Intro,
 }
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Debug")]
     public GameState overrideState = GameState.None;
+
+    [Header("Game Rules")]
     public float cleaningTime = 5.0f;
     public float dryingTime = 5.0f;
     public float pimpingTime = 5.0f;
+    public Customer[] customers;
 
-    public TMP_Text timerText;
-    public TMP_Text infoText;
-    public TMP_Text titleText;
-
-    public Animation titleAnimation;
-
-    public WindSource windSource;
-    public float defaultDamping = 10.0f;
-    public float defaultAmplitude = 2.0f;
-    public float defaultTemporalFrequency = 2.0f;
-    public float dryingWindDamping = 1.5f;
-    public float dryingWindAmplitude = 8.0f;
-    public float dryingWindTemporalFrequency = 20.0f;
-
+    [Header("Brush Rules")]
     public float cleaningMaxVelocity = 60.0f;
     public float cleaningBrushStrength = 0.02f;
 
@@ -41,43 +33,46 @@ public class GameManager : MonoBehaviour
     public float dryingBrushDamping = 1.5f;
     public float dryingBrushStrength = 0.04f;
 
-    T GetObjectUnderMouse<T>()
+    [Header("Wind Effect")]
+    public float defaultDamping = 10.0f;
+    public float defaultAmplitude = 2.0f;
+    public float defaultTemporalFrequency = 2.0f;
+    public float dryingWindDamping = 1.5f;
+    public float dryingWindAmplitude = 8.0f;
+    public float dryingWindTemporalFrequency = 20.0f;
+
+    [Header("Internal")]
+    public TMP_Text timerText;
+    public TMP_Text infoText;
+    public Animation titleAnimation;
+    public WindSource windSource;
+    public Transform sponge;
+    public Transform dryer;
+    public Animation scene;
+    public Transform customerContainer;
+    public Transform animalContainer;
+    public RectTransform titleClean;
+    public RectTransform titleDry;
+    public RectTransform titlePimp;
+
+    
+    // Start is called before the first frame update
+    void Start()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, Vector2.zero);
-        foreach(RaycastHit2D hit in hits)
+        m_previousMousePostion = GetMouse3DPosition();
+        m_windSourceOrigin = windSource.transform.position;
+
+        if (overrideState != GameState.None)
         {
-            T comp = hit.transform.GetComponent<T>();
-            if (comp != null)
-            {
-                return comp;
-            }
+            SetState(overrideState);
+            m_currentTimer = -1.0f; // infinite
         }
-        return default(T);
-    }
-
-    string StateToText(GameState _state)
-    {
-        string text = "";
-        switch (_state)
+        else
         {
-            case GameState.Cleaning: text = "Toilettage"; break;
-            case GameState.Drying: text = "Séchage"; break;
-            case GameState.Pimping : text = "Pimpage"; break;
+            SetState(GameState.Intro);
         }
-        return text;
     }
-
-    Vector3 GetMouse3DPosition(float _z = -1.0f)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane p = new Plane(new Vector3(0.0f, 0.0f, _z), Vector3.zero);
-        float enter = 0.0f;
-        bool result = p.Raycast(ray, out enter);
-        Assert.IsTrue(result);
-        return ray.GetPoint(enter);
-    }
-
+    
     void SetState(GameState _state)
     {
         // EXIT STATE
@@ -85,12 +80,14 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Cleaning:
             {
-
+                sponge.gameObject.SetActive(false);
+                Cursor.visible = true;
             }
             break;
             case GameState.Drying:
             {
-
+                dryer.gameObject.SetActive(false);
+                Cursor.visible = true;
             }
             break;
             case GameState.Pimping:
@@ -103,8 +100,16 @@ public class GameManager : MonoBehaviour
             break;
             case GameState.Transition:
             {
+                RectTransform title = StateToTitle(m_nextState);
+                title.gameObject.SetActive(false);
+
                 infoText.enabled = true;
                 timerText.enabled = true;
+            }
+            break;
+            case GameState.Intro:
+            {
+
             }
             break;
             default:
@@ -122,11 +127,19 @@ public class GameManager : MonoBehaviour
             case GameState.Cleaning:
             {
                 m_currentTimer = cleaningTime;
+
+                sponge.gameObject.SetActive(true);
+                sponge.transform.position = GetMouse3DPosition();
+                Cursor.visible = false;
             }
             break;
             case GameState.Drying:
             {
                 m_currentTimer = dryingTime;
+
+                dryer.gameObject.SetActive(true);
+                dryer.transform.position = GetMouse3DPosition();
+                Cursor.visible = false;
             }
             break;
             case GameState.Pimping:
@@ -138,8 +151,30 @@ public class GameManager : MonoBehaviour
             {
                 infoText.enabled = false;
                 timerText.enabled = false;
-                titleText.text = StateToText(m_nextState);
+                RectTransform title = StateToTitle(m_nextState);
+                title.gameObject.SetActive(true);
                 titleAnimation.Play();
+            }
+            break;
+            case GameState.Intro:
+            {
+                Customer customerData = customers[m_currentCustomerIndex];
+
+                ClearAllChildren(customerContainer);
+                ClearAllChildren(animalContainer);
+
+                Transform customer = Object.Instantiate(customerData.customer, customerContainer);
+                customer.localPosition = Vector3.zero;
+
+                m_currentAnimal = Object.Instantiate(customerData.animal, animalContainer);
+                m_currentAnimal.transform.localPosition = Vector3.zero;
+
+                foreach (Fur fur in m_currentAnimal.GetFur())
+                {
+                    fur.windSource = windSource;
+                }
+
+                scene.Play();
             }
             break;
             default:
@@ -147,28 +182,6 @@ public class GameManager : MonoBehaviour
 
             }
             break;
-        }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        m_previousMousePostion = GetMouse3DPosition();
-        m_windSourceOrigin = windSource.transform.position;
-        foreach (Fur fur in m_currentAnimal.GetFur())
-        {
-            fur.windSource = windSource;
-        }
-
-        if (overrideState != GameState.None)
-        {
-            SetState(overrideState);
-            m_currentTimer = -1.0f; // infinite
-        }
-        else
-        {
-            m_nextState = GameState.Cleaning;
-            SetState(GameState.Transition);
         }
     }
 
@@ -186,6 +199,7 @@ public class GameManager : MonoBehaviour
             {
                 windSourceLocked = Input.GetMouseButton(0);
 
+                // AFFECT FUR
                 if (windSourceLocked)
                 {
                     foreach (Fur fur in m_currentAnimal.GetFur())
@@ -198,12 +212,16 @@ public class GameManager : MonoBehaviour
                         fur.IncrementClean(increment);
                     }
                 }
+
+                // SPONGE FOLLOW MOUSE
+                sponge.transform.position = Vector3.Lerp(sponge.transform.position, GetMouse3DPosition(), 0.2f);
             }
             break;
             case GameState.Drying:
             {
                 windSourceLocked = Input.GetMouseButton(0);
 
+                // AFFECT FUR
                 if (windSourceLocked)
                 {
                     foreach (Fur fur in m_currentAnimal.GetFur())
@@ -215,7 +233,9 @@ public class GameManager : MonoBehaviour
                         fur.IncrementDry(increment);
                     }
                 }
-                
+
+                // DRYER FOLLOW MOUSE
+                dryer.transform.position = Vector3.Lerp(dryer.transform.position, GetMouse3DPosition(), 0.2f);
             }
             break;
             case GameState.Pimping:
@@ -254,6 +274,16 @@ public class GameManager : MonoBehaviour
                     SetState(m_nextState);
                     m_nextState = GameState.None;
                 }
+            }
+            break;
+            case GameState.Intro:
+            {
+                if (!scene.isPlaying)
+                {
+                    m_nextState = GameState.Cleaning;
+                    SetState(GameState.Transition);
+                }
+                
             }
             break;
             default:
@@ -353,8 +383,67 @@ public class GameManager : MonoBehaviour
     Vector3 m_windSourceOrigin;
     Vector3 m_windSourceOffset;
 
-    public Animal m_currentAnimal;
-
     float m_currentTimer = -1.0f;
     Vector3 m_previousMousePostion;
+
+    int m_currentCustomerIndex = 0;
+    Animal m_currentAnimal;
+
+    // TOOLS
+    T GetObjectUnderMouse<T>()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, Vector2.zero);
+        foreach(RaycastHit2D hit in hits)
+        {
+            T comp = hit.transform.GetComponent<T>();
+            if (comp != null)
+            {
+                return comp;
+            }
+        }
+        return default(T);
+    }
+
+    string StateToText(GameState _state)
+    {
+        string text = "";
+        switch (_state)
+        {
+            case GameState.Cleaning: text = "Toilettage"; break;
+            case GameState.Drying: text = "Séchage"; break;
+            case GameState.Pimping : text = "Pimpage"; break;
+        }
+        return text;
+    }
+
+    RectTransform StateToTitle(GameState _state)
+    {
+        RectTransform title = null;
+        switch (_state)
+        {
+            case GameState.Cleaning: title = titleClean; break;
+            case GameState.Drying: title = titleDry; break;
+            case GameState.Pimping : title = titlePimp; break;
+        }
+        return title;
+    }
+
+    Vector3 GetMouse3DPosition(float _z = -1.0f)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane p = new Plane(new Vector3(0.0f, 0.0f, _z), Vector3.zero);
+        float enter = 0.0f;
+        bool result = p.Raycast(ray, out enter);
+        Assert.IsTrue(result);
+        return ray.GetPoint(enter);
+    }
+
+    void ClearAllChildren(Transform _transform)
+    {
+        foreach(Transform t in _transform)
+        {
+            Object.Destroy(t.gameObject);
+        }
+    }
 }

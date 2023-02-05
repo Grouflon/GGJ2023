@@ -160,10 +160,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061317228}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.4, y: 1.93, z: -0.13383006}
+  m_LocalPosition: {x: -5.2, y: 0.11, z: -0.13383006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1226336472}
   m_Father: {fileID: 5579616224220392347}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -179,10 +180,95 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b58c1e334ebfcd48b4a029acb0c81e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spatial_frequency: 5
-  temporal_frequency: 10
-  amplitude: 8
+  spatial_frequency: -5
+  temporal_frequency: 2
+  amplitude: 2
   random: 1
+  damping: 1
+--- !u!1 &1226336471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1226336472}
+  - component: {fileID: 1226336473}
+  m_Layer: 0
+  m_Name: Circle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1226336472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226336471}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1061317229}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1226336473
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226336471}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &5579616223032769663
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +330,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &5579616223032769650
 MonoBehaviour:
@@ -554,7 +640,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6dc7d691e6169479f2be3fd8d2acda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fur: []
 --- !u!114 &5579616224220392345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,14 +653,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideState: 0
-  cleaningTime: 5
-  dryingTime: 5
+  cleaningTime: 10
+  dryingTime: 10
   pimpingTime: 5
+  cleaningMaxVelocity: 60
+  cleaningBrushStrength: 0.05
+  dryingBrushRadius: 0.7
+  dryingBrushDamping: 1.5
+  dryingBrushStrength: 0.02
+  defaultDamping: 0.05
+  defaultAmplitude: 2
+  defaultTemporalFrequency: 2
+  dryingWindDamping: 0.5
+  dryingWindAmplitude: 10
+  dryingWindTemporalFrequency: 30
   timerText: {fileID: 5579616224437475886}
   infoText: {fileID: 5579616223236404317}
   titleText: {fileID: 823623170}
   titleAnimation: {fileID: 1004594799}
   windSource: {fileID: 1061317230}
+  m_currentAnimal: {fileID: 0}
+  sponge: {fileID: 0}
+  dryer: {fileID: 0}
 --- !u!111 &1004594799
 Animation:
   m_ObjectHideFlags: 0

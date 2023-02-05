@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public float dryingTime = 5.0f;
     public float pimpingTime = 5.0f;
     public Customer[] customers;
+    public bool shuffleCustomers = true;
 
     [Header("Brush Rules")]
     public float cleaningMaxVelocity = 60.0f;
@@ -76,6 +77,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (shuffleCustomers)
+        {
+            Customer temp;
+            for (int i = 0; i < customers.Length; i++)
+            {
+                int rnd = Random.Range(0, customers.Length);
+                temp = customers[rnd];
+                customers[rnd] = customers[i];
+                customers[i] = temp;
+            }
+        }
+        
         m_previousMousePostion = GetMouse3DPosition();
         m_windSourceOrigin = windSource.transform.position;
 

@@ -9,13 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5992307452312770850}
+  - component: {fileID: 1600865745}
   m_Layer: 0
   m_Name: Dryer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5992307452312770850
 Transform:
   m_ObjectHideFlags: 0
@@ -33,6 +34,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1600865745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044117352576679384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f750646cfe231c49b23b7952a237d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParticleA: {fileID: 6777996139127963033}
+  ParticleB: {fileID: 6777996138730054068}
+  delta_time: 0.25
+  intensity_threshold: 0.00001
 --- !u!1 &8465451037097100311
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +149,10 @@ PrefabInstance:
       propertyPath: InitialModule.startSpeed.scalar
       value: 0.16
       objectReference: {fileID: 0}
+    - target: {fileID: 140589709863861401, guid: 073ac8a39e8cb2946a3345eba6d83273, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 140589709863861414, guid: 073ac8a39e8cb2946a3345eba6d83273, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -143,6 +164,10 @@ PrefabInstance:
     - target: {fileID: 140589709863861414, guid: 073ac8a39e8cb2946a3345eba6d83273, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 140589710539694258, guid: 073ac8a39e8cb2946a3345eba6d83273, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 140589710539694259, guid: 073ac8a39e8cb2946a3345eba6d83273, type: 3}
       propertyPath: m_LocalPosition.x
@@ -238,6 +263,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 073ac8a39e8cb2946a3345eba6d83273, type: 3}
+--- !u!198 &6777996138730054068 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 140589709863861400, guid: 073ac8a39e8cb2946a3345eba6d83273, type: 3}
+  m_PrefabInstance: {fileID: 6909434470457924908}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6777996139127963033 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 140589710539694261, guid: 073ac8a39e8cb2946a3345eba6d83273, type: 3}
+  m_PrefabInstance: {fileID: 6909434470457924908}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6777996140055530271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 140589711189169715, guid: 073ac8a39e8cb2946a3345eba6d83273, type: 3}

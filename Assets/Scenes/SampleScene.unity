@@ -338,6 +338,25 @@ MonoBehaviour:
       qu\u2019on s\u2019en l\xE8che les doigts"
     dirtyMin: 0
     dirtyMax: 0
+    cleanMin: 0.5
+    cleanMax: 1
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0.75
+    dryMax: 1
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags:
+    - Boujee
+    - Cute
+    - Fashionista
+    negativePropsTags: []
+  - introSentence: "Le coeur d\u2019Iphig\xE9nie appartient \xE0 la ferme, une vie
+      agricole, \xE0 la fra\xEEche en Auvergne"
+    dirtyMin: 0.5
+    dirtyMax: 1
     cleanMin: 0
     cleanMax: 0
     rippedMin: 0
@@ -345,14 +364,79 @@ MonoBehaviour:
     wetMin: 0
     wetMax: 0
     dryMin: 0
-    dryMax: 0
+    dryMax: 1
     burnedMin: 0
     burnedMax: 0
     positivePropsTags: []
+    negativePropsTags:
+    - Boujee
+  - introSentence: "Iphig\xE9nie, mondaine, \xE0 la cour du roi ? Voil\xE0 une image
+      qui me remplit de joie"
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0.8
+    cleanMax: 1
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0.25
+    wetMax: 0
+    dryMin: 0.75
+    dryMax: 1
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags: []
+    negativePropsTags:
+    - Gaucho
+  - introSentence: "En avance sur son temps, moderne, visionnaire, Iphig\xE9nie est
+      une r\xE9volutionnaire"
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0
+    cleanMax: 0.75
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0
+    dryMax: 0
+    burnedMin: 0.05
+    burnedMax: 1
+    positivePropsTags:
+    - Gaucho
+    negativePropsTags:
+    - Boujee
+  - introSentence: "Iphig\xE9nie est bien plus qu\u2019un animal, elle pourrait \xEAtre
+      m\xE9decin ou amiral"
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0.25
+    cleanMax: 1
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0.5
+    dryMax: 1
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags:
+    - Job
     negativePropsTags: []
-  failSentences: []
-  neutralSentences: []
-  successSentences: []
+  failSentences:
+  - "La douleur qui se tait, n\u2019en est que plus funeste"
+  - 'Pressez : demandez tout, pour ne rien obtenir'
+  - "Tout m'afflige et me nuit, et conspire \xE0 me nuire"
+  neutralSentences:
+  - "Qui veut voyager loin m\xE9nage sa monture"
+  - "Je ch\xE9ris ta personne et je hais ton erreur"
+  - "Je peux vous assurer qu'entre vivre ou de mourir, s'il en m'\xE9tait donn\xE9
+    la possibilit\xE9, je ne saurais laquelle choisir"
+  successSentences:
+  - "H\xE2tons-nous aujourd'hui de jouir de la vie. Qui sait si nous serons demain
+    ?"
+  - "Puisse le ciel verser sur toutes vos ann\xE9es, mille prosp\xE9rit\xE9s l'une
+    \xE0 l'autre encha\xEEn\xE9es !"
+  - "J'aime... \xE0 ce nom fatal, je tremble, je frissonne"
   bark: {fileID: 8300000, guid: 5bd9959de03be984d87c209af0116e7b, type: 3}
   animalBark: {fileID: 8300000, guid: f2ad5699d2cb0b04d8c265118600303a, type: 3}
 --- !u!4 &459659284 stripped
@@ -461,10 +545,10 @@ MonoBehaviour:
   animal: {fileID: 5727693639292256466, guid: 3c096d1a7dccd674f9273251e4b26462, type: 3}
   customer: {fileID: 5121497520943144398, guid: 482ce8fdd47695242908bbc424e8f962, type: 3}
   rules:
-  - introSentence: "J\u2019ai toujours r\xEAv\xE9 que Georges ressemble \xE0 un pok\xE9mon
-      feu !!!"
-    dirtyMin: 0
-    dirtyMax: 0
+  - introSentence: "Mon r\xEAve c'est que Georges ressemble \xE0 un Pok\xE9mon feu
+      !!!"
+    dirtyMin: 0.5
+    dirtyMax: 1
     cleanMin: 0
     cleanMax: 0
     rippedMin: 0
@@ -473,15 +557,33 @@ MonoBehaviour:
     wetMax: 0
     dryMin: 0
     dryMax: 0
-    burnedMin: 0
-    burnedMax: 0
-    positivePropsTags: []
-    negativePropsTags:
-    - 
-  - introSentence: "J\u2019ai toujours r\xEAv\xE9 que Georges ressemble \xE0 un pok\xE9mon
-      feu !!!"
+    burnedMin: 0.75
+    burnedMax: 1
+    positivePropsTags:
+    - Punk
+    negativePropsTags: []
+  - introSentence: "Bonjour \u0295\u2022\u1D25\u2022\u0294, serait-il possible de
+      pomponner Georges pour qu\u2019il ressemble \xE0 une Bratz ?"
     dirtyMin: 0
     dirtyMax: 0
+    cleanMin: 0.75
+    cleanMax: 1
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0.75
+    dryMax: 1
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags:
+    - Cute
+    - Fashionista
+    negativePropsTags: []
+  - introSentence: "Pas besoin de le laver, avec Georges on va en manif juste apr\xE8s
+      >_<"
+    dirtyMin: 0.5
+    dirtyMax: 1
     cleanMin: 0
     cleanMax: 0
     rippedMin: 0
@@ -489,15 +591,65 @@ MonoBehaviour:
     wetMin: 0
     wetMax: 0
     dryMin: 0
-    dryMax: 0
+    dryMax: 1
     burnedMin: 0
     burnedMax: 0
-    positivePropsTags: []
+    positivePropsTags:
+    - Gaucho
+    negativePropsTags: []
+  - introSentence: "J\u2019ai un entretien d\u2019embauche cet apr\xE8s-midi, Georges
+      doit avoir l\u2019air professionnel"
+    dirtyMin: 0.75
+    dirtyMax: 1
+    cleanMin: 0
+    cleanMax: 0
+    rippedMin: 0
+    rippedMax: 0.15
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0.25
+    dryMax: 1
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags:
+    - Job
+    negativePropsTags: []
+  - introSentence: "C\u2019est la Fashion Week et il faut absolument que Georges
+      soit un it-boy \xE8_\xE9"
+    dirtyMin: 0.5
+    dirtyMax: 1
+    cleanMin: 0
+    cleanMax: 0
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0
+    dryMax: 1
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags:
+    - Fashionista
+    - Gaucho
+    - Punk
     negativePropsTags:
-    - 
-  failSentences: []
-  neutralSentences: []
-  successSentences: []
+    - Boujee
+  failSentences:
+  - "Mon cochon-dinde a probablement \xE9t\xE9 pris en charge par le stagiaire. Vous
+    ne me reverrez pas."
+  - "La t\xEAte de mon cochon n\u2019\xE9tait pas dingue ( \u0361\xB0 \u035C\u0296
+    \u0361\xB0)"
+  - "Je sais o\xF9 vous habitez..."
+  neutralSentences:
+  - "Euh, merci j\u2019imagine\u2026"
+  - "C\u2019\xE9tait pas ouf \xAF\\(\u30C4)/\xAF"
+  - "Y\u2019avait moyen de moyenner mieux"
+  successSentences:
+  - "Mon cochon-dinde est absolument parfait *.* (m\xEAme s\u2019il l\u2019\xE9tait
+    d\xE9j\xE0 avant)"
+  - Jpp mon cochon-dinde est trop beau T_T
+  - "Georges est si \xE9blouissant que je dois d\xE9sormais porter des lunettes de
+    soleil pour le regarder"
   bark: {fileID: 8300000, guid: ee66f94bd2b22444790e182a6830d2f7, type: 3}
   animalBark: {fileID: 8300000, guid: 0c6898c1569d3274682e2e8cde9e409c, type: 3}
 --- !u!4 &705138546
@@ -1005,6 +1157,62 @@ MonoBehaviour:
       quand c\u2019est piment\xE9"
     dirtyMin: 0
     dirtyMax: 0
+    cleanMin: 0.5
+    cleanMax: 1
+    rippedMin: 0
+    rippedMax: 0.2
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0
+    dryMax: 0
+    burnedMin: 0.75
+    burnedMax: 1
+    positivePropsTags:
+    - Cute
+    - Fashionista
+    - Punk
+    negativePropsTags: []
+  - introSentence: "Y\u2019a un boug qui veut me tr\xE9mousser, j\u2019ai besoin
+      que Pookie lui fasse peur"
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0
+    cleanMax: 0
+    rippedMin: 0.25
+    rippedMax: 1
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0
+    dryMax: 0.5
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags:
+    - Punk
+    - Gaucho
+    negativePropsTags:
+    - Cute
+  - introSentence: Il faut que Pookie soit la plus bonne bonne bonne de mes copines,
+      en mode jolie nana
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0.75
+    cleanMax: 1
+    rippedMin: 0
+    rippedMax: 0.1
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0.75
+    dryMax: 1
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags:
+    - Cute
+    - Fashionista
+    negativePropsTags: []
+  - introSentence: "On a un clip \xE0 tourner et Pookie et moi on veut faire du sale,
+      fais ta magie"
+    dirtyMin: 0.5
+    dirtyMax: 1
     cleanMin: 0
     cleanMax: 0
     rippedMin: 0
@@ -1012,14 +1220,44 @@ MonoBehaviour:
     wetMin: 0
     wetMax: 0
     dryMin: 0
-    dryMax: 0
+    dryMax: 1
     burnedMin: 0
     burnedMax: 0
-    positivePropsTags: []
+    positivePropsTags:
+    - Fashionista
+    - Gaucho
+    - Job
     negativePropsTags: []
-  failSentences: []
-  neutralSentences: []
-  successSentences: []
+  - introSentence: "Moi j\u2019veux la vie de r\xEAve, Pookie doit valoir millions
+      d\u2019dollars"
+    dirtyMin: 0
+    dirtyMax: 0
+    cleanMin: 0.75
+    cleanMax: 1
+    rippedMin: 0
+    rippedMax: 0
+    wetMin: 0
+    wetMax: 0
+    dryMin: 0.75
+    dryMax: 1
+    burnedMin: 0
+    burnedMax: 0
+    positivePropsTags:
+    - Boujee
+    negativePropsTags:
+    - Gaucho
+  failSentences:
+  - "J\u2019t\u2019ai barr\xE9 fort, l\xE0 j\u2019ai pas le time pour toi"
+  - "PUTAIN MAIS TU DECONNES, c\u2019est pas comme \xE7a qu\u2019on fait les choses"
+  - "Faut qu\u2019tu cesses, j\u2019t\u2019envoie balader"
+  neutralSentences:
+  - "Je pourrais t\u2019afficher, mais c\u2019est pas mon d\xE9lire"
+  - "Tu peux d\xE9poser ton CV par mail"
+  - "On m\u2019a dit t\u2019es dangereux, mais t\u2019es mignon"
+  successSentences:
+  - "Baby, tu dead \xE7a"
+  - "Fais doucement, tu pourrais m\u2019envo\xFBter"
+  - "On fait le combo, j\u2019ai trouv\xE9 la recette"
   bark: {fileID: 8300000, guid: a2cfcf7be9fe988438d1df90107dfd3d, type: 3}
   animalBark: {fileID: 8300000, guid: 3aad85a439a633e45968bb3cc2087fc0, type: 3}
 --- !u!1 &1934804576

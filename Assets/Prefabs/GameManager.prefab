@@ -656,11 +656,12 @@ MonoBehaviour:
   cleaningTime: 10
   dryingTime: 10
   pimpingTime: 5
+  customers: []
   cleaningMaxVelocity: 60
-  cleaningBrushStrength: 0.05
+  cleaningBrushStrength: 0.01
   dryingBrushRadius: 0.7
   dryingBrushDamping: 1.5
-  dryingBrushStrength: 0.02
+  dryingBrushStrength: 0.005
   defaultDamping: 0.05
   defaultAmplitude: 2
   defaultTemporalFrequency: 2
@@ -669,12 +670,16 @@ MonoBehaviour:
   dryingWindTemporalFrequency: 30
   timerText: {fileID: 5579616224437475886}
   infoText: {fileID: 5579616223236404317}
-  titleText: {fileID: 823623170}
   titleAnimation: {fileID: 1004594799}
   windSource: {fileID: 1061317230}
-  m_currentAnimal: {fileID: 0}
   sponge: {fileID: 0}
   dryer: {fileID: 0}
+  scene: {fileID: 0}
+  customerContainer: {fileID: 0}
+  animalContainer: {fileID: 0}
+  titleClean: {fileID: 0}
+  titleDry: {fileID: 0}
+  titlePimp: {fileID: 0}
 --- !u!111 &1004594799
 Animation:
   m_ObjectHideFlags: 0

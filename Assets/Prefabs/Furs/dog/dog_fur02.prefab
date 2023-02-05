@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windSource: {fileID: 0}
   cleanSprite: {fileID: 21300000, guid: e439a7ff55e8b354db9e8c16947139da, type: 3}
-  drySprite: {fileID: 21300000, guid: 900209b516ee5ab469b8685f1ae01fea, type: 3}
+  drySprite: {fileID: 21300000, guid: 80521f43f8018b44a87466d9cb94d096, type: 3}
   toodrySprite: {fileID: 21300000, guid: 1ef54a7650db9e84fa5765e194e0498e, type: 3}
   dirtySprite: {fileID: 21300000, guid: 17c63ad8a89bdb141b6c050f2046b4d1, type: 3}
 --- !u!1 &9192278654793187094

@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5559604207935850439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.19, y: 0.77, z: 0}
+  m_LocalPosition: {x: 0.115, y: 0.231, z: 0}
   m_LocalScale: {x: 0.75635, y: 0.75635, z: 0.75635}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -111,7 +111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7926359573840177827}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.772, y: 0.118, z: -0.050737713}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -172,4 +172,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58429a7992c2064484f4058bdcb00e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: []
+  tags:
+  - Job

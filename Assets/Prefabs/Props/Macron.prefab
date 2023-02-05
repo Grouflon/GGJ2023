@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5559604207935850439}
   m_LocalRotation: {x: -0, y: -0, z: -0.15360153, w: 0.9881329}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.39, y: 1.08, z: 0}
   m_LocalScale: {x: 0.371835, y: 0.371835, z: 0.371835}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -111,7 +111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7926359573840177827}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.772, y: 0.118, z: -0.050737713}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -146,7 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58429a7992c2064484f4058bdcb00e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: []
+  tags:
+  - Gaucho
 --- !u!60 &5386573060302120436
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -172,11 +173,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.7923754, y: 1.735127}
-      - {x: -1.2940907, y: 0.060979486}
-      - {x: -0.26419568, y: -0.3221847}
-      - {x: -0.5848954, y: -1.1490579}
-      - {x: -0.399431, y: -1.3305541}
-      - {x: -0.049016297, y: -0.37053826}
-      - {x: 1.096392, y: -0.7378145}
-      - {x: 1.6796715, y: 0.9127625}
+    - - {x: -0.41684407, y: 2.8275816}
+      - {x: -0.935629, y: 1.0851558}
+      - {x: 0.111335576, y: 0.75320053}
+      - {x: -0.19229448, y: -0.10781193}
+      - {x: 0.010239601, y: -0.18689048}
+      - {x: 0.34358466, y: 0.6707078}
+      - {x: 1.4548538, y: 0.33757073}
+      - {x: 2.0381331, y: 1.9881476}

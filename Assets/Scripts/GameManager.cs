@@ -56,7 +56,10 @@ public class GameManager : MonoBehaviour
     public RectTransform titleClean;
     public RectTransform titleDry;
     public RectTransform titlePimp;
-
+    public RectTransform textContainer;
+    public TMP_Text ayaText;
+    public TMP_Text justineText;
+    public TMP_Text racineText;
     
     // Start is called before the first frame update
     void Start()
@@ -111,7 +114,10 @@ public class GameManager : MonoBehaviour
             break;
             case GameState.Intro:
             {
-
+                textContainer.gameObject.SetActive(false);
+                ayaText.gameObject.SetActive(false);
+                justineText.gameObject.SetActive(false);
+                racineText.gameObject.SetActive(false);
             }
             break;
             case GameState.Outro:
@@ -290,12 +296,23 @@ public class GameManager : MonoBehaviour
             break;
             case GameState.Intro:
             {
-                if (!scene.isPlaying)
+                bool isInIntro = scene.isPlaying;
+                bool isInPrompt = !scene.isPlaying && textContainer.gameObject.activeSelf;
+                if (!isInIntro && !isInPrompt)
+                {
+                    textContainer.gameObject.SetActive(true);
+                    Customer customer = customers[m_currentCustomerIndex];
+                    Rules rules = customer.rules[m_currentRule];
+                    TMP_Text text = CustomerToText(customer);
+                    text.text = rules.introSentence;
+                    text.gameObject.SetActive(true);
+                }
+
+                if (isInPrompt && Input.GetMouseButtonDown(0))
                 {
                     m_nextState = GameState.Cleaning;
                     SetState(GameState.Transition);
                 }
-                
             }
             break;
             case GameState.Outro:
@@ -423,6 +440,7 @@ public class GameManager : MonoBehaviour
     Vector3 m_previousMousePostion;
 
     int m_currentCustomerIndex = 0;
+    int m_currentRule = 0;
     Animal m_currentAnimal;
 
     // TOOLS
@@ -481,5 +499,17 @@ public class GameManager : MonoBehaviour
         {
             Object.Destroy(t.gameObject);
         }
+    }
+
+    TMP_Text CustomerToText(Customer _customer)
+    {
+        TMP_Text text = null;
+        switch (_customer.id)
+        {
+            case 0: text = justineText; break;
+            case 1: text = ayaText; break;
+            case 2 : text = racineText; break;
+        }
+        return text;
     }
 }

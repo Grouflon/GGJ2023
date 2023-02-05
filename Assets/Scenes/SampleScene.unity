@@ -1264,7 +1264,7 @@ PrefabInstance:
       objectReference: {fileID: 1037813181}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: pimpingTime
-      value: 5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: animalContainer

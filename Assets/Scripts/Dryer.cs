@@ -27,7 +27,6 @@ public class Dryer : MonoBehaviour
 
     public void ModifyFog(float intensity)
     {
-        Debug.Log("> " + intensity + " (" + _livetime + ") - " + particle_is_on);
         if (intensity >= intensity_threshold)
             StartFog();
     }

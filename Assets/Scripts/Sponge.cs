@@ -28,7 +28,6 @@ public class Sponge : MonoBehaviour
 
     public void ModifyBubble(float intensity)
     {
-        Debug.Log("> " + intensity + " (" + _livetime + ") - " + particle_is_on);
         if (intensity >= intensity_threshold)
             StartBubble();
     }

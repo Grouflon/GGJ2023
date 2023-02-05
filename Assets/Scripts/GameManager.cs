@@ -93,8 +93,12 @@ public class GameManager : MonoBehaviour
             {
                 sponge.gameObject.SetActive(false);
                 Cursor.visible = true;
-
+                
                 toolAudioSource.Stop();
+
+                float dirty, clean, ripped;
+                dirty = clean = ripped = 0;
+                get_percentage_cleanliness(ref dirty, ref clean, ref ripped);
             }
             break;
             case GameState.Drying:
@@ -103,6 +107,10 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = true;
 
                 toolAudioSource.Stop();
+
+                float wet, dry, burned;
+                burned = dry = wet = 0;
+                get_percentage_dryness(ref wet, ref dry, ref burned);
             }
             break;
             case GameState.Pimping:
@@ -114,6 +122,7 @@ public class GameManager : MonoBehaviour
                 m_isInDryEnd = false;
                 m_waitForDryReset = false;
                 ClearAllChildren(drawerContainer);
+
             }
             break;
             case GameState.Transition:
@@ -231,7 +240,6 @@ public class GameManager : MonoBehaviour
     {
         Vector3 mousePosition = GetMouse3DPosition();
         Vector3 velocity = (mousePosition - m_previousMousePostion) / Time.deltaTime;
-        // Debug.Log(velocity.magnitude);
 
         bool windSourceLocked = false;
         switch (m_currentstate)
@@ -252,10 +260,12 @@ public class GameManager : MonoBehaviour
                     foreach (Fur fur in m_currentAnimal.GetFur())
                     {
                         float speedFactor = Mathf.Clamp01(velocity.magnitude / cleaningMaxVelocity);
-                        float distance = Vector3.Distance(mousePosition, fur.transform.position);
+                        float distance = Mathf.Sqrt(
+                            Mathf.Pow(mousePosition.x- fur.transform.position.x, 2)
+                            + Mathf.Pow(mousePosition.y- fur.transform.position.y, 2));
+                        // float distance = Vector3.Distance(mousePosition, fur.transform.position);
                         float increment = speedFactor * cleaningBrushStrength
                                         * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
-                        // Debug.Log("Incr = " + speedFactor + " . " + cleaningBrushStrength + " - " + increment);
                         fur.IncrementClean(increment);
                         sum_increment += increment;
                     }
@@ -287,10 +297,12 @@ public class GameManager : MonoBehaviour
                     float sum_increment = 0;
                     foreach (Fur fur in m_currentAnimal.GetFur())
                     {
-                        float distance = Vector3.Distance(mousePosition, fur.transform.position);
+                        float distance = Mathf.Sqrt(
+                            Mathf.Pow(mousePosition.x- fur.transform.position.x, 2)
+                            + Mathf.Pow(mousePosition.y- fur.transform.position.y, 2));
+                        // float distance = Vector3.Distance(mousePosition, fur.transform.position);
                         float increment = dryingBrushStrength
                                         * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
-                        // Debug.Log("Incr = " + dryingBrushStrength + " - " + increment);
                         fur.IncrementDry(increment);
                         sum_increment += increment;
                     }
@@ -522,6 +534,46 @@ public class GameManager : MonoBehaviour
         barkAudioSource.clip = customer.animalBark;
         barkAudioSource.pitch = Random.Range(1f-bias, 1f+bias);
         barkAudioSource.Play();
+    }
+
+    void get_percentage_dryness(ref float wet, ref float dry, ref float burned)
+    {
+        burned = dry = wet = 0;
+        foreach (Fur fur in m_currentAnimal.GetFur())
+        {
+            int indexdry = fur.GetDryIndex();
+            int indexclean = fur.GetCleanIndex();
+            if (indexclean == 1){
+                switch (indexdry) {
+                    case 0: wet += 1; break;
+                    case 1: dry += 1; break;
+                    case 2: burned += 1; break;
+                }
+            }
+        }
+        float sum = wet + dry + burned;
+        if (sum != 0){
+            wet /= sum;
+            dry /= sum;
+            burned /= sum;
+        }
+    }
+    void get_percentage_cleanliness(ref float dirty, ref float clean, ref float ripped)
+    {
+        ripped = clean = dirty = 0;
+        foreach (Fur fur in m_currentAnimal.GetFur())
+        {
+            int index = fur.GetCleanIndex();
+            switch (index) {
+                case 0: dirty += 1; break;
+                case 1: clean += 1; break;
+                case 2: ripped += 1; break;
+            }
+        }
+        float sum = dirty + clean + ripped;
+        dirty /= sum;
+        clean /= sum;
+        ripped /= sum;
     }
 
     Prop m_draggedProp;

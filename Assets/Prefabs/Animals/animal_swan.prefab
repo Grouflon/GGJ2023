@@ -209,6 +209,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: swan_fur03 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
+      propertyPath: cleanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 091621ce15aa80243bcef714e9736742, type: 3}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -283,6 +287,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: swan_fur03 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
+      propertyPath: cleanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 091621ce15aa80243bcef714e9736742, type: 3}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -735,6 +743,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: swan_fur01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: bd313642a700bb94e82b8c7cf7f6adab, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: bd313642a700bb94e82b8c7cf7f6adab, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -835,7 +847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: bd313642a700bb94e82b8c7cf7f6adab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.02
+      value: -0.002
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: bd313642a700bb94e82b8c7cf7f6adab, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1131,7 +1143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: bd313642a700bb94e82b8c7cf7f6adab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: bd313642a700bb94e82b8c7cf7f6adab, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1179,6 +1191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: swan_fur03 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
+      propertyPath: cleanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 091621ce15aa80243bcef714e9736742, type: 3}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1253,6 +1269,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: swan_fur03 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
+      propertyPath: cleanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 091621ce15aa80243bcef714e9736742, type: 3}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_RootOrder
       value: 23
@@ -1279,7 +1299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1623,6 +1643,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: swan_fur03 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
+      propertyPath: cleanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 091621ce15aa80243bcef714e9736742, type: 3}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_RootOrder
       value: 25
@@ -1649,7 +1673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1697,6 +1721,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: swan_fur03 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
+      propertyPath: cleanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 091621ce15aa80243bcef714e9736742, type: 3}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_RootOrder
       value: 26
@@ -1723,7 +1755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1771,6 +1803,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: swan_fur03 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
+      propertyPath: cleanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 091621ce15aa80243bcef714e9736742, type: 3}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -1797,7 +1833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1845,6 +1881,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: swan_fur03 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4473855835333783207, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
+      propertyPath: cleanSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 091621ce15aa80243bcef714e9736742, type: 3}
     - target: {fileID: 8642200517395116865, guid: 1a88fc48e3ce383489c8f992b70c71a2, type: 3}
       propertyPath: m_RootOrder
       value: 14

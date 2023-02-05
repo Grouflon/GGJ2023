@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8642200517395116865}
   - component: {fileID: 4473855835333783207}
   m_Layer: 0
-  m_Name: guinea_fur01
+  m_Name: swan_fur01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windSource: {fileID: 0}
-  cleanSprite: {fileID: 21300000, guid: ed60516abee54e547885cd6c1cec332d, type: 3}
-  drySprite: {fileID: 21300000, guid: 48b71e6041852714dba9d6868bced0b7, type: 3}
+  cleanSprite: {fileID: 21300000, guid: eb1ec048722279f44b65d4150e11df95, type: 3}
+  drySprite: {fileID: 21300000, guid: 46b77fbba53c73d488fc4a2619a7db05, type: 3}
   toodrySprite: {fileID: 21300000, guid: 52af109251620a548be96822a1402fc0, type: 3}
-  dirtySprite: {fileID: 21300000, guid: 883bc57cfb91ad84386bc9a5f9218c2c, type: 3}
+  dirtySprite: {fileID: 21300000, guid: 1c6bfc63b3e3d624baa4b214d0eb353d, type: 3}
 --- !u!1 &9192278654793187094
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +208,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 48b71e6041852714dba9d6868bced0b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 46b77fbba53c73d488fc4a2619a7db05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

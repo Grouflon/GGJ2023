@@ -533,8 +533,8 @@ Transform:
   m_Children:
   - {fileID: 1417129334}
   - {fileID: 1113874379}
-  - {fileID: 1198332972}
   - {fileID: 911623986}
+  - {fileID: 1198332972}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -604,10 +604,10 @@ MonoBehaviour:
   rules:
   - introSentence: "Mon r\xEAve c'est que Georges ressemble \xE0 un Pok\xE9mon feu
       !!!"
-    dirtyMin: 0.5
-    dirtyMax: 1
+    dirtyMin: 0
+    dirtyMax: 0
     cleanMin: 0
-    cleanMax: 0
+    cleanMax: 1
     rippedMin: 0
     rippedMax: 0
     wetMin: 0
@@ -637,8 +637,8 @@ MonoBehaviour:
     - Cute
     - Fashionista
     negativePropsTags: []
-  - introSentence: "Pas besoin de le laver, avec Georges on va en manif juste apr\xE8s
-      >_<"
+  - introSentence: "Pas besoin de trop le laver, avec Georges on va en manif juste
+      apr\xE8s"
     dirtyMin: 0.5
     dirtyMax: 1
     cleanMin: 0
@@ -694,12 +694,11 @@ MonoBehaviour:
   failSentences:
   - "Mon cochon-dinde a probablement \xE9t\xE9 pris en charge par le stagiaire. Vous
     ne me reverrez pas."
-  - "La t\xEAte de mon cochon n\u2019\xE9tait pas dingue ( \u0361\xB0 \u035C\u0296
-    \u0361\xB0)"
+  - "La t\xEAte de mon cochon n\u2019\xE9tait pas dingue >_<"
   - "Je sais o\xF9 vous habitez..."
   neutralSentences:
   - "Euh, merci j\u2019imagine\u2026"
-  - "C\u2019\xE9tait pas ouf \xAF\\(\u30C4)/\xAF"
+  - "C\u2019\xE9tait pas ouf -_-"
   - "Y\u2019avait moyen de moyenner mieux"
   successSentences:
   - "Mon cochon-dinde est absolument parfait *.* (m\xEAme s\u2019il l\u2019\xE9tait
@@ -911,7 +910,7 @@ Transform:
   m_Children:
   - {fileID: 87027266}
   m_Father: {fileID: 477369599}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1037813181 stripped
 Transform:
@@ -1126,7 +1125,7 @@ Transform:
   m_Children:
   - {fileID: 257063242}
   m_Father: {fileID: 477369599}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1417129333
 GameObject:
@@ -1268,7 +1267,7 @@ MonoBehaviour:
     negativePropsTags: []
   - introSentence: "On a un clip \xE0 tourner et Pookie et moi on veut faire du sale,
       fais ta magie"
-    dirtyMin: 0.5
+    dirtyMin: 0.25
     dirtyMax: 1
     cleanMin: 0
     cleanMax: 0
@@ -1639,6 +1638,10 @@ PrefabInstance:
       propertyPath: drawerContainerRight
       value: 
       objectReference: {fileID: 911623986}
+    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
+      propertyPath: forceRandomRuleIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: customers.Array.data[0]
       value: 

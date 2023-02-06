@@ -31,7 +31,7 @@ public class Dryer : MonoBehaviour
             StartFog();
     }
 
-    void StartFog()
+    public void StartFog()
     {
         if (!particle_is_on)
         {
@@ -41,7 +41,7 @@ public class Dryer : MonoBehaviour
         }
         _livetime = delta_time;
     }
-    void StopFog()
+    public void StopFog()
     {
         ParticleA.Stop();
         ParticleB.Stop();

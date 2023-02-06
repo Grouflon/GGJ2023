@@ -18,6 +18,8 @@ public class Fur : MonoBehaviour
         rotation_biais = Random.Range(-1f, 1f);
         cleanliness = 0;
         dryness = 0;
+
+        windSource = FindObjectOfType<WindSource>();
     }
 
     // Update is called once per frame

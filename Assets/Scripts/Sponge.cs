@@ -32,7 +32,7 @@ public class Sponge : MonoBehaviour
             StartBubble();
     }
 
-    void StartBubble()
+    public void StartBubble()
     {
         if (!particle_is_on)
         {
@@ -42,7 +42,7 @@ public class Sponge : MonoBehaviour
         }
         _livetime = delta_time;
     }
-    void StopBubble()
+    public void StopBubble()
     {
         ParticleA.Stop();
         ParticleB.Stop();

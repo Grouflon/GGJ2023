@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("Debug")]
     public GameState overrideState = GameState.None;
+    public int forceRandomRuleIndex = -1;
 
     [Header("Game Rules")]
     public float cleaningTime = 5.0f;
@@ -114,7 +115,9 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Cleaning:
             {
+                sponge.GetComponent<Sponge>().StopBubble();
                 sponge.gameObject.SetActive(false);
+
                 Cursor.visible = true;
                 
                 toolAudioSource.Stop();
@@ -122,11 +125,16 @@ public class GameManager : MonoBehaviour
                 float dirty, clean, ripped;
                 dirty = clean = ripped = 0;
                 get_percentage_cleanliness(ref dirty, ref clean, ref ripped);
+
+                toolAudioSource.volume = 1.0f;
+
             }
             break;
             case GameState.Drying:
             {
+                dryer.GetComponent<Dryer>().StopFog();
                 dryer.gameObject.SetActive(false);
+                
                 Cursor.visible = true;
 
                 toolAudioSource.Stop();
@@ -134,6 +142,7 @@ public class GameManager : MonoBehaviour
                 float wet, dry, burned;
                 burned = dry = wet = 0;
                 get_percentage_dryness(ref wet, ref dry, ref burned);
+
             }
             break;
             case GameState.Pimping:
@@ -192,21 +201,28 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Cleaning:
             {
+                toolAudioSource.volume = 0.0f;
+
                 m_currentTimer = cleaningTime;
 
                 sponge.gameObject.SetActive(true);
                 sponge.transform.position = GetMouse3DPosition();
+                sponge.GetComponent<Sponge>().StopBubble();
                 Cursor.visible = false;
 
                 toolAudioSource.clip = spongeSound;
+
             }
             break;
             case GameState.Drying:
             {
+                toolAudioSource.volume = 0.1f;
+
                 m_currentTimer = dryingTime;
 
                 dryer.gameObject.SetActive(true);
                 dryer.transform.position = GetMouse3DPosition();
+                dryer.GetComponent<Dryer>().StopFog();
                 Cursor.visible = false;
                 
                 toolAudioSource.clip = dryerSound;
@@ -240,7 +256,14 @@ public class GameManager : MonoBehaviour
                 m_promptSkipNotified = false;
 
                 Customer customerData = customers[m_currentCustomerIndex];
-                m_currentRule = Random.Range(0, customerData.rules.Length); 
+                if (forceRandomRuleIndex >= 0)
+                {
+                    m_currentRule = forceRandomRuleIndex;
+                }
+                else
+                {
+                    m_currentRule = Random.Range(0, customerData.rules.Length); 
+                }
 
                 ClearAllChildren(customerContainer);
                 ClearAllChildren(animalContainer);
@@ -456,8 +479,7 @@ public class GameManager : MonoBehaviour
             {
                 if (m_reviewsSkipNotified)
                 {
-                    Scene scene = SceneManager.GetActiveScene();
-                    SceneManager.LoadScene(scene.name);
+                    SceneManager.LoadScene("SplashScreen");
                 }
             }
             break;

@@ -14,6 +14,39 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-3720972763962709371
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: e5edb7743a19a9b4c814683687de0f0f
+  m_EffectName: Attenuation
+  m_MixLevel: 635078d44e1998c468e20aaaf07ce369
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &-2307743381175833435
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Music
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 3fe183b471edc77439750b2a054b93ad
+  m_Children: []
+  m_Volume: 8b8487a3b83f38e40a3b99d0ae8b55b8
+  m_Pitch: 449a349aaeb5c204c90cf1c4f0657836
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -3720972763962709371}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-1779840893421954016
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -69,6 +102,7 @@ AudioMixerController:
     - a6e3be84c0074814c8446dae55d0d4a7
     - 76ab56a2a17f7ea439fcb660f66ff5f2
     - 3a85028d6b8ef58499b6c676b50b646b
+    - 3fe183b471edc77439750b2a054b93ad
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -82,6 +116,7 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 819b4f807b0ea2a49a7959a44892e541
   m_Children:
+  - {fileID: -2307743381175833435}
   - {fileID: 7381639096984558221}
   - {fileID: -1437677781946851665}
   - {fileID: 7168016571118037427}
@@ -118,8 +153,9 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 3c1d42de85b4ed64f88dcbf651a29119
   m_FloatValues:
+    8b8487a3b83f38e40a3b99d0ae8b55b8: -22.71404
     c3d6b8d30010cba49baa4e98ad8e9735: -11.944499
-    ee3af0c5c8a53da479b135e61627a22e: -6.991066
+    ee3af0c5c8a53da479b135e61627a22e: -18.592384
     1401a6466859f094fbd9e4c4a8f6e098: 0.64345783
   m_TransitionOverrides: {}
 --- !u!243 &7168016571118037427

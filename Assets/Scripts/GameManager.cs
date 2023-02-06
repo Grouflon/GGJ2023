@@ -342,7 +342,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 // SPONGE FOLLOW MOUSE
-                sponge.transform.position = Vector3.Lerp(sponge.transform.position, GetMouse3DPosition(), 0.2f);
+                sponge.transform.position = Vector3.Lerp(sponge.transform.position, GetMouse3DPosition(), 0.25f);
             }
             break;
             case GameState.Drying:
@@ -377,7 +377,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 // DRYER FOLLOW MOUSE
-                dryer.transform.position = Vector3.Lerp(dryer.transform.position, GetMouse3DPosition(), 0.2f);
+                dryer.transform.position = Vector3.Lerp(dryer.transform.position, GetMouse3DPosition(), 0.25f);
             }
             break;
             case GameState.Pimping:
@@ -417,7 +417,7 @@ public class GameManager : MonoBehaviour
                         Vector3 point = GetMouse3DPosition();
 
                         m_draggedProp.transform.position = point + m_draggedPropOffset;
-                        m_draggedPropOffset = Vector3.Lerp(m_draggedPropOffset, Vector3.zero, 0.05f);
+                        m_draggedPropOffset = Vector3.Lerp(m_draggedPropOffset, Vector3.zero, 0.14f);
                     }
                 }
             }

@@ -162,9 +162,6 @@ public class GameManager : MonoBehaviour
             {
                 RectTransform title = StateToTitle(m_nextState);
                 title.gameObject.SetActive(false);
-
-                infoText.enabled = true;
-                timerText.enabled = true;
             }
             break;
             case GameState.Intro:
@@ -242,8 +239,6 @@ public class GameManager : MonoBehaviour
             break;
             case GameState.Transition:
             {
-                infoText.enabled = false;
-                timerText.enabled = false;
                 RectTransform title = StateToTitle(m_nextState);
                 title.gameObject.SetActive(true);
                 titleAnimation.Play();
@@ -573,6 +568,7 @@ public class GameManager : MonoBehaviour
         m_previousWindSourceLocked = windSourceLocked;
 
         // UI
+        timerText.gameObject.SetActive(m_currentTimer >= 0.0f);
         timerText.text = m_currentTimer >= 0.0f ? Mathf.FloorToInt(m_currentTimer).ToString() : "";
         infoText.text = StateToText(m_currentstate);
 

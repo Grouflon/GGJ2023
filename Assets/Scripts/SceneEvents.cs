@@ -18,11 +18,11 @@ public class SceneEvents : MonoBehaviour
 
     void OnCustomerArrived()
     {
-        //FindObjectOfType<GameManager>().Bark();
+        FindObjectOfType<GameManager>().Bark();
     }
 
     void OnAnimalArrived()
     {
-        FindObjectOfType<GameManager>().AnimalBark();
+        //FindObjectOfType<GameManager>().AnimalBark();
     }
 }

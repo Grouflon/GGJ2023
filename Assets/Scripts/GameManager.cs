@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_scores = new int[customers.Length];
+
         if (shuffleCustomers)
         {
             Customer temp;
@@ -248,6 +250,7 @@ public class GameManager : MonoBehaviour
             break;
             case GameState.Outro:
             {
+                m_scores[m_currentCustomerIndex] = ComputeCurrentScore();
                 scene.Play("CustomerExit");
             }
             break;
@@ -405,7 +408,7 @@ public class GameManager : MonoBehaviour
                     text.text = rules.introSentence;
                     text.gameObject.SetActive(true);
 
-                    Bark();
+                    AnimalBark();
                 }
 
                 if (isInPrompt && Input.GetMouseButtonDown(0))
@@ -612,6 +615,76 @@ public class GameManager : MonoBehaviour
         ripped /= sum;
     }
 
+    int ComputeCurrentScore()
+    {
+        Customer customer = customers[m_currentCustomerIndex];
+        Rules rule = customer.rules[m_currentRule];
+        
+        float dirty, clean, ripped;
+        dirty = clean = ripped = 0;
+        get_percentage_cleanliness(ref dirty, ref clean, ref ripped);
+
+        float wet, dry, burned;
+        burned = dry = wet = 0;
+        get_percentage_dryness(ref wet, ref dry, ref burned);
+
+        bool isCleanOk = true;
+        if (rule.dirtyMin != rule.dirtyMax)
+        {
+            isCleanOk = isCleanOk && dirty >= rule.dirtyMin && dirty <= rule.dirtyMax;
+        }
+        if (rule.cleanMin != rule.cleanMax)
+        {
+            isCleanOk = isCleanOk && clean >= rule.cleanMin && clean <= rule.cleanMax;
+        }
+        if (rule.rippedMin != rule.rippedMax)
+        {
+            isCleanOk = isCleanOk && ripped >= rule.rippedMin && ripped <= rule.rippedMax;
+        }
+
+        bool isDryOk = true;
+        if (rule.wetMin != rule.wetMax)
+        {
+            isDryOk = isDryOk && wet >= rule.wetMin && wet <= rule.wetMax;
+        }
+        if (rule.dryMin != rule.dryMax)
+        {
+            isDryOk = isDryOk && dry >= rule.dryMin && dry <= rule.dryMax;
+        }
+        if (rule.burnedMin != rule.burnedMax)
+        {
+            isDryOk = isDryOk && burned >= rule.burnedMin && burned <= rule.burnedMax;
+        }
+
+        bool expectsPositiveProp = rule.positivePropsTags.Length > 0;
+        bool hasPositiveProp = false;
+        bool hasNegativeProp = false;
+        Prop[] props = m_currentAnimal.GetComponentsInChildren<Prop>();
+        foreach (Prop prop in props)
+        {
+            foreach(string propTag in prop.tags)
+            {
+                foreach(string ruleTag in rule.positivePropsTags)
+                {
+                    hasPositiveProp = hasPositiveProp || ruleTag == propTag;
+                }
+
+                foreach(string ruleTag in rule.negativePropsTags)
+                {
+                    hasNegativeProp = hasNegativeProp || ruleTag == propTag;
+                }
+
+                if (hasNegativeProp) break;
+            }
+            if (hasNegativeProp) break;
+        }
+        bool isPimpOk = !hasNegativeProp && (!expectsPositiveProp || hasPositiveProp);
+        Debug.Log("Clean: " + isCleanOk + " / Dry: " + isDryOk + " / Pimp: " + isPimpOk);
+
+        int score = (isCleanOk ? 1 : 0) + (isDryOk ? 1 : 0) + (isPimpOk ? 1 : 0);
+        return score;
+    }
+
     Prop m_draggedProp;
     Vector3 m_draggedPropOffset;
     GameState m_currentstate;
@@ -630,6 +703,8 @@ public class GameManager : MonoBehaviour
 
     bool m_isInDryEnd = false;
     bool m_waitForDryReset = false;
+
+    int[] m_scores;
 
     // TOOLS
     T GetObjectUnderMouse<T>()

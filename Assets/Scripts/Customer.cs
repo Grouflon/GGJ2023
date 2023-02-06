@@ -5,6 +5,7 @@ using UnityEngine;
 /*
 les scores sont testés en AND, à moins que min et max aient la même valeur, à ce moment là on ignore.
 pour les props, n'importe quel tag positif valide le point, mais un seul tag négatif invalide forcément le point.
+si aucun positive tag, le point est validé à moins que un négative tag soit présent.
 */
 
 [System.Serializable]

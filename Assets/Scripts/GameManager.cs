@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public enum GameState
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text ayaText;
     public TMP_Text justineText;
     public TMP_Text racineText;
+    public ReviewUI reviewUI;
     public Transform drawerPrefabRight;
     public Transform drawerPrefabLeft;
     public Transform drawerContainerLeft;
@@ -162,11 +164,18 @@ public class GameManager : MonoBehaviour
                 ayaText.gameObject.SetActive(false);
                 justineText.gameObject.SetActive(false);
                 racineText.gameObject.SetActive(false);
+                m_promptSkipNotified = false;
             }
             break;
             case GameState.Outro:
             {
 
+            }
+            break;
+            case GameState.End:
+            {
+                m_reviewsSkipNotified = false;
+                reviewUI.gameObject.SetActive(false);
             }
             break;
             default:
@@ -228,6 +237,8 @@ public class GameManager : MonoBehaviour
             break;
             case GameState.Intro:
             {
+                m_promptSkipNotified = false;
+
                 Customer customerData = customers[m_currentCustomerIndex];
                 m_currentRule = Random.Range(0, customerData.rules.Length); 
 
@@ -252,6 +263,13 @@ public class GameManager : MonoBehaviour
             {
                 m_scores[m_currentCustomerIndex] = ComputeCurrentScore();
                 scene.Play("CustomerExit");
+            }
+            break;
+            case GameState.End:
+            {
+                m_reviewsSkipNotified = false;
+                reviewUI.SetReviews(customers, m_scores);
+                reviewUI.gameObject.SetActive(true);
             }
             break;
             default:
@@ -411,7 +429,7 @@ public class GameManager : MonoBehaviour
                     AnimalBark();
                 }
 
-                if (isInPrompt && Input.GetMouseButtonDown(0))
+                if (isInPrompt && m_promptSkipNotified)
                 {
                     m_nextState = GameState.Cleaning;
                     SetState(GameState.Transition);
@@ -431,6 +449,15 @@ public class GameManager : MonoBehaviour
                     {
                         SetState(GameState.Intro);
                     }
+                }
+            }
+            break;
+            case GameState.End:
+            {
+                if (m_reviewsSkipNotified)
+                {
+                    Scene scene = SceneManager.GetActiveScene();
+                    SceneManager.LoadScene(scene.name);
                 }
             }
             break;
@@ -555,6 +582,16 @@ public class GameManager : MonoBehaviour
         m_draggedProp = null;
 
         barkAudioSource.PlayOneShot(dropAudio);
+    }
+
+    public void NotifyPromptButtonClicked()
+    {
+        m_promptSkipNotified = true;
+    }
+
+    public void NotifyReviewsButtonClicked()
+    {
+        m_reviewsSkipNotified = true;
     }
 
     public void Bark()
@@ -705,6 +742,9 @@ public class GameManager : MonoBehaviour
     bool m_waitForDryReset = false;
 
     int[] m_scores;
+
+    bool m_promptSkipNotified = false;
+    bool m_reviewsSkipNotified = false;
 
     // TOOLS
     T GetObjectUnderMouse<T>()

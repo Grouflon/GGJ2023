@@ -56,7 +56,21 @@ public class Fur : MonoBehaviour
         SpriteRenderer spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         switch(cleanIndex){
             case 0:
-                spriteRenderer.sprite = dirtySprite;
+                switch(drynessIndex){
+                    case 0:
+                        // Dirty and Wet
+                        spriteRenderer.sprite = dirtySprite;
+                        break;
+                    case 1:
+                        // Dirty and Dry
+                        spriteRenderer.sprite = dirtySprite;
+                        break;
+                    case 2:
+                        // Dirty and Burned
+                        spriteRenderer.sprite = toodrySprite;
+                        break;
+                }
+                
             break;
             case 1:
                 switch(drynessIndex){

@@ -11,7 +11,6 @@ public class Prop : MonoBehaviour
     {
         m_originParent = transform.parent;
         m_gigote = GetComponent<Gigote>();
-        //ResetOrigin();
     }
 
     // Update is called once per frame
@@ -21,7 +20,7 @@ public class Prop : MonoBehaviour
         {
             if (transform.parent == null)
             {
-                transform.position = Vector3.Lerp(transform.position, m_origin, 0.1f);
+                transform.position = TimeIndependentLerp(transform.position, m_origin, 0.1f, Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, m_origin) < 0.1f)
                 {
@@ -63,6 +62,12 @@ public class Prop : MonoBehaviour
     {
         transform.position = m_origin;
         transform.SetParent(m_originParent);
+    }
+
+    Vector3 TimeIndependentLerp(Vector3 _base, Vector3 _target, float _timeTo90, float _dt)
+    {
+        float lambda = -Mathf.Log(1.0f - 0.9f) / _timeTo90;
+	    return Vector3.Lerp(_base, _target, 1 - Mathf.Exp(-lambda * _dt));
     }
 
     bool m_dragged = false;

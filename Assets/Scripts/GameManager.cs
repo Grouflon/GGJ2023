@@ -304,6 +304,8 @@ public class GameManager : MonoBehaviour
         Vector3 mousePosition = GetMouse3DPosition();
         Vector3 velocity = (mousePosition - m_previousMousePostion) / Time.deltaTime;
 
+        float frameRateCompensation = 350.0f;
+
         bool windSourceLocked = false;
         switch (m_currentstate)
         {
@@ -329,6 +331,8 @@ public class GameManager : MonoBehaviour
                         // float distance = Vector3.Distance(mousePosition, fur.transform.position);
                         float increment = speedFactor * cleaningBrushStrength
                                         * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
+                        increment *= Time.deltaTime * frameRateCompensation;
+
                         fur.IncrementClean(increment);
                         sum_increment += increment;
                     }
@@ -342,7 +346,9 @@ public class GameManager : MonoBehaviour
                 }
 
                 // SPONGE FOLLOW MOUSE
-                sponge.transform.position = Vector3.Lerp(sponge.transform.position, GetMouse3DPosition(), 0.25f);
+                //sponge.transform.position = Vector3.Lerp(sponge.transform.position, GetMouse3DPosition(), (1.0f - Mathf.Pow(0.25f, Time.deltaTime)));
+                sponge.transform.position = TimeIndependentLerp(sponge.transform.position, GetMouse3DPosition(), 0.1f, Time.deltaTime);
+
             }
             break;
             case GameState.Drying:
@@ -366,6 +372,8 @@ public class GameManager : MonoBehaviour
                         // float distance = Vector3.Distance(mousePosition, fur.transform.position);
                         float increment = dryingBrushStrength
                                         * Mathf.Exp(- Mathf.Pow(dryingBrushDamping * Mathf.Max(0, distance - dryingBrushRadius), 2));
+                        increment *= Time.deltaTime * frameRateCompensation;
+
                         fur.IncrementDry(increment);
                         sum_increment += increment;
                     }
@@ -377,7 +385,8 @@ public class GameManager : MonoBehaviour
                 }
 
                 // DRYER FOLLOW MOUSE
-                dryer.transform.position = Vector3.Lerp(dryer.transform.position, GetMouse3DPosition(), 0.25f);
+                //dryer.transform.position = Vector3.Lerp(dryer.transform.position, GetMouse3DPosition(), 0.25f);
+                dryer.transform.position = TimeIndependentLerp(dryer.transform.position, GetMouse3DPosition(), 0.1f, Time.deltaTime);
             }
             break;
             case GameState.Pimping:
@@ -385,11 +394,6 @@ public class GameManager : MonoBehaviour
                 if (m_waitForDryReset && !scene.isPlaying)
                 {
                     m_waitForDryReset = false;
-                    Prop[] props = FindObjectsOfType<Prop>();
-                    foreach (Prop prop in props)
-                    {
-                        //prop.ResetOrigin();
-                    }
                 }
 
                 if (!m_isInDryEnd && !m_waitForDryReset)
@@ -417,7 +421,9 @@ public class GameManager : MonoBehaviour
                         Vector3 point = GetMouse3DPosition();
 
                         m_draggedProp.transform.position = point + m_draggedPropOffset;
-                        m_draggedPropOffset = Vector3.Lerp(m_draggedPropOffset, Vector3.zero, 0.14f);
+
+                        //m_draggedPropOffset = Vector3.Lerp(m_draggedPropOffset, Vector3.zero, 0.14f);
+                        m_draggedPropOffset = TimeIndependentLerp(m_draggedPropOffset, Vector3.zero, 0.1f, Time.deltaTime);
                     }
                 }
             }
@@ -547,23 +553,24 @@ public class GameManager : MonoBehaviour
             {
                 m_windSourceOffset = windSource.transform.position - point;
             }
-            m_windSourceOffset = Vector3.Lerp(m_windSourceOffset, Vector3.zero, 0.05f);
+            //m_windSourceOffset = Vector3.Lerp(m_windSourceOffset, Vector3.zero, 0.05f);
+            m_windSourceOffset = TimeIndependentLerp(m_windSourceOffset, Vector3.zero, 0.1f, Time.deltaTime);
             windSource.transform.position = point + m_windSourceOffset;
             //windSource.transform.position = Vector3.Lerp(windSource.transform.position, point, 0.05f);
 
             float lerpRatio = 0.1f;
-            windSource.damping = Mathf.Lerp(windSource.damping, dryingWindDamping, lerpRatio);
-            windSource.amplitude = Mathf.Lerp(windSource.amplitude, dryingWindAmplitude, lerpRatio);
-            windSource.temporal_frequency = Mathf.Lerp(windSource.temporal_frequency, dryingWindTemporalFrequency, lerpRatio);
+            windSource.damping = TimeIndependentLerp(windSource.damping, dryingWindDamping, lerpRatio, Time.deltaTime);
+            windSource.amplitude = TimeIndependentLerp(windSource.amplitude, dryingWindAmplitude, lerpRatio, Time.deltaTime);
+            windSource.temporal_frequency = TimeIndependentLerp(windSource.temporal_frequency, dryingWindTemporalFrequency, lerpRatio, Time.deltaTime);
         }
         else
         {
-            windSource.transform.position = Vector3.Lerp(windSource.transform.position, m_windSourceOrigin, 0.1f);
+            windSource.transform.position = TimeIndependentLerp(windSource.transform.position, m_windSourceOrigin, 0.1f, Time.deltaTime);
 
             float lerpRatio = 0.1f;
-            windSource.damping = Mathf.Lerp(windSource.damping, defaultDamping, lerpRatio);
-            windSource.amplitude = Mathf.Lerp(windSource.amplitude, defaultAmplitude, lerpRatio);
-            windSource.temporal_frequency = Mathf.Lerp(windSource.temporal_frequency, defaultTemporalFrequency, lerpRatio);
+            windSource.damping = TimeIndependentLerp(windSource.damping, defaultDamping, lerpRatio, Time.deltaTime);
+            windSource.amplitude = TimeIndependentLerp(windSource.amplitude, defaultAmplitude, lerpRatio, Time.deltaTime);
+            windSource.temporal_frequency = TimeIndependentLerp(windSource.temporal_frequency, defaultTemporalFrequency, lerpRatio, Time.deltaTime);
         }
         m_previousWindSourceLocked = windSourceLocked;
 
@@ -616,7 +623,7 @@ public class GameManager : MonoBehaviour
     {
         Customer customer = customers[m_currentCustomerIndex];
 
-        float bias = 0.1f;
+        float bias = 0.05f;
         barkAudioSource.pitch = Random.Range(1f-bias, 1f+bias);
         barkAudioSource.PlayOneShot(customer.bark);
     }
@@ -765,6 +772,18 @@ public class GameManager : MonoBehaviour
     bool m_reviewsSkipNotified = false;
 
     // TOOLS
+    float TimeIndependentLerp(float _base, float _target, float _timeTo90, float _dt)
+    {
+        float lambda = -Mathf.Log(1.0f - 0.9f) / _timeTo90;
+	    return Mathf.Lerp(_base, _target, 1 - Mathf.Exp(-lambda * _dt));
+    }
+
+    Vector3 TimeIndependentLerp(Vector3 _base, Vector3 _target, float _timeTo90, float _dt)
+    {
+        float lambda = -Mathf.Log(1.0f - 0.9f) / _timeTo90;
+	    return Vector3.Lerp(_base, _target, 1 - Mathf.Exp(-lambda * _dt));
+    }
+
     T GetObjectUnderMouse<T>()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

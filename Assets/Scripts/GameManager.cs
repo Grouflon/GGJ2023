@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public Customer[] customers;
     public bool shuffleCustomers = true;
     public float cookThreshold = 0.85f;
+    public float dogCookThreshold = 0.75f;
 
     [Header("Brush Rules")]
     public float cleaningMaxVelocity = 60.0f;
@@ -381,7 +382,13 @@ public class GameManager : MonoBehaviour
                     burned = dry = wet = 0;
                     get_percentage_dryness(ref wet, ref dry, ref burned);
 
-                    if (burned >= cookThreshold)
+                    float actualCookThreshold = cookThreshold;
+                    if (customers[m_currentCustomerIndex].id == 1) // aya
+                    {
+                        actualCookThreshold = dogCookThreshold;
+                    }
+
+                    if (burned >= actualCookThreshold)
                     {
                         m_currentAnimal.Cook();
                     }

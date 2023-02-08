@@ -355,7 +355,7 @@ MonoBehaviour:
     negativePropsTags: []
   - introSentence: "Le coeur d\u2019Iphig\xE9nie appartient \xE0 la ferme, une vie
       agricole, \xE0 la fra\xEEche en Auvergne"
-    dirtyMin: 0.5
+    dirtyMin: 0.25
     dirtyMax: 1
     cleanMin: 0
     cleanMax: 0
@@ -1619,6 +1619,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1417129334}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
+      propertyPath: dogCookThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
+      propertyPath: shuffleCustomers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: customerContainer
       value: 
       objectReference: {fileID: 1113874379}
@@ -1631,13 +1639,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 911623986}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
+      propertyPath: forceRandomRuleIndex
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: customers.Array.data[0]
       value: 
-      objectReference: {fileID: 705138545}
+      objectReference: {fileID: 1518456213}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: customers.Array.data[1]
       value: 
-      objectReference: {fileID: 1518456213}
+      objectReference: {fileID: 705138545}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: customers.Array.data[2]
       value: 

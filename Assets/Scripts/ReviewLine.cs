@@ -9,6 +9,7 @@ public struct LineData
     public Sprite icon;
     public TMPro.TMP_FontAsset font;
     public float fontSize;
+    public RectTransform namePrefab;
 }
 
 public class ReviewLine : MonoBehaviour
@@ -16,6 +17,7 @@ public class ReviewLine : MonoBehaviour
     public TMPro.TMP_Text text;
     public Image icon;
     public Image[] stars;
+    public RectTransform nameContainer;
 
     public LineData aya;
     public LineData racine;
@@ -45,6 +47,12 @@ public class ReviewLine : MonoBehaviour
         stars[0].gameObject.SetActive(true);
         stars[1].gameObject.SetActive(_score >= 2);
         stars[2].gameObject.SetActive(_score >= 3);
+
+        foreach (RectTransform child in nameContainer)
+        {
+            Object.Destroy(child.gameObject);
+        }
+        Object.Instantiate(lineData.namePrefab, nameContainer);
     }
 
     LineData GetLineDataForCustomer(Customer _customer)

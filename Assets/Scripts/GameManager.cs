@@ -64,6 +64,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text ayaText;
     public TMP_Text justineText;
     public TMP_Text racineText;
+    public RectTransform ayaName;
+    public RectTransform justineName;
+    public RectTransform racineName;
     public ReviewUI reviewUI;
     public Transform drawerPrefabRight;
     public Transform drawerPrefabLeft;
@@ -162,6 +165,9 @@ public class GameManager : MonoBehaviour
                 ayaText.gameObject.SetActive(false);
                 justineText.gameObject.SetActive(false);
                 racineText.gameObject.SetActive(false);
+                ayaName.gameObject.SetActive(false);
+                justineName.gameObject.SetActive(false);
+                racineName.gameObject.SetActive(false);
                 m_promptSkipNotified = false;
             }
             break;
@@ -451,6 +457,9 @@ public class GameManager : MonoBehaviour
                     TMP_Text text = CustomerToText(customer);
                     text.text = rules.introSentence;
                     text.gameObject.SetActive(true);
+
+                    RectTransform name = CustomerToName(customer);
+                    name.gameObject.SetActive(true);
 
                     AnimalBark();
                 }
@@ -867,5 +876,17 @@ public class GameManager : MonoBehaviour
             case 2 : text = racineText; break;
         }
         return text;
+    }
+
+    RectTransform CustomerToName(Customer _customer)
+    {
+        RectTransform name = null;
+        switch (_customer.id)
+        {
+            case 0: name = justineName; break;
+            case 1: name = ayaName; break;
+            case 2 : name = racineName; break;
+        }
+        return name;
     }
 }

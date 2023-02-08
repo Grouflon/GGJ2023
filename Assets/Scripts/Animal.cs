@@ -7,6 +7,7 @@ public class Animal : MonoBehaviour
     public Transform nude;
     public Transform cooked;
     public ParticleSystem fireBurst;
+    public AudioSource fireSound;
 
     public Fur[] GetFur()
     {
@@ -33,6 +34,7 @@ public class Animal : MonoBehaviour
         {
             fireBurst.Play();
             m_hasPlayedBurst = true;
+            fireSound.Play();
         }
     }
 

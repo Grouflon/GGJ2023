@@ -331,6 +331,7 @@ MonoBehaviour:
   nude: {fileID: 1399748074}
   cooked: {fileID: 537808747688887}
   fireBurst: {fileID: 2448353126483620338}
+  fireSound: {fileID: 6865580842267224004}
 --- !u!1001 &160898235288165388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1004,6 +1005,11 @@ Transform:
 --- !u!198 &2448353126483620338 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 4350974804586714106, guid: fa72d90e72e6f764c9965e26eb437f59, type: 3}
+  m_PrefabInstance: {fileID: 2133449181251314184}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &6865580842267224004 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4818000426861692364, guid: fa72d90e72e6f764c9965e26eb437f59, type: 3}
   m_PrefabInstance: {fileID: 2133449181251314184}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2535236849150433724

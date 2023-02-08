@@ -1917,6 +1917,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6dc7d691e6169479f2be3fd8d2acda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nude: {fileID: 0}
+  cooked: {fileID: 0}
+  fireBurst: {fileID: 0}
 --- !u!114 &5579616224220392345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1930,15 +1933,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideState: 0
-  forceRandomRuleIndex: -1
+  forceRandomRuleIndex: 1
   cleaningTime: 8
   dryingTime: 8
-  pimpingTime: 20
+  pimpingTime: 15
   customers:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   shuffleCustomers: 1
+  cookThreshold: 0.85
   cleaningMaxVelocity: 60
   cleaningBrushStrength: 0.02
   dryingBrushRadius: 0.7

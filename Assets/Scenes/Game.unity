@@ -344,10 +344,10 @@ MonoBehaviour:
     rippedMax: 0
     wetMin: 0
     wetMax: 0
-    dryMin: 0.75
-    dryMax: 1
-    burnedMin: 0
-    burnedMax: 0
+    dryMin: 0
+    dryMax: 0
+    burnedMin: 0.85
+    burnedMax: 1
     positivePropsTags:
     - Boujee
     - Cute
@@ -614,7 +614,7 @@ MonoBehaviour:
     wetMax: 0
     dryMin: 0
     dryMax: 0
-    burnedMin: 0.75
+    burnedMin: 0.85
     burnedMax: 1
     positivePropsTags:
     - Punk
@@ -692,8 +692,8 @@ MonoBehaviour:
     negativePropsTags:
     - Boujee
   failSentences:
-  - "Mon cochon-dinde a probablement \xE9t\xE9 pris en charge par le stagiaire. Vous
-    ne me reverrez pas."
+  - "Mon cochon d'inde a probablement \xE9t\xE9 pris en charge par le stagiaire.
+    Vous ne me reverrez pas."
   - "La t\xEAte de mon cochon n\u2019\xE9tait pas dingue >_<"
   - "Je sais o\xF9 vous habitez..."
   neutralSentences:
@@ -701,9 +701,9 @@ MonoBehaviour:
   - "C\u2019\xE9tait pas ouf -_-"
   - "Y\u2019avait moyen de moyenner mieux"
   successSentences:
-  - "Mon cochon-dinde est absolument parfait *.* (m\xEAme s\u2019il l\u2019\xE9tait
+  - "Mon cochon d'inde est absolument parfait *.* (m\xEAme s\u2019il l\u2019\xE9tait
     d\xE9j\xE0 avant)"
-  - Jpp mon cochon-dinde est trop beau T_T
+  - Jpp mon cochon d'inde est trop beau T_T
   - "Georges est si \xE9blouissant que je dois d\xE9sormais porter des lunettes de
     soleil pour le regarder"
   bark: {fileID: 8300000, guid: ee66f94bd2b22444790e182a6830d2f7, type: 3}
@@ -1221,7 +1221,7 @@ MonoBehaviour:
     wetMax: 0
     dryMin: 0
     dryMax: 0
-    burnedMin: 0.75
+    burnedMin: 0.85
     burnedMax: 1
     positivePropsTags:
     - Cute
@@ -1611,18 +1611,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1037813181}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
-      propertyPath: dryingTime
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
-      propertyPath: pimpingTime
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
-      propertyPath: cleaningTime
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: animalContainer
       value: 
       objectReference: {fileID: 1417129334}
@@ -1638,10 +1626,6 @@ PrefabInstance:
       propertyPath: drawerContainerRight
       value: 
       objectReference: {fileID: 911623986}
-    - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
-      propertyPath: forceRandomRuleIndex
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5579616224220392345, guid: 7bf217c495180394082624289c732aa3, type: 3}
       propertyPath: customers.Array.data[0]
       value: 

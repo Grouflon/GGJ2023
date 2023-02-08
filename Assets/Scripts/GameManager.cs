@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public float pimpingTime = 5.0f;
     public Customer[] customers;
     public bool shuffleCustomers = true;
+    public float cookThreshold = 0.85f;
 
     [Header("Brush Rules")]
     public float cleaningMaxVelocity = 60.0f;
@@ -122,10 +123,6 @@ public class GameManager : MonoBehaviour
                 
                 toolAudioSource.Stop();
 
-                float dirty, clean, ripped;
-                dirty = clean = ripped = 0;
-                get_percentage_cleanliness(ref dirty, ref clean, ref ripped);
-
                 toolAudioSource.volume = 1.0f;
 
             }
@@ -138,11 +135,6 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = true;
 
                 toolAudioSource.Stop();
-
-                float wet, dry, burned;
-                burned = dry = wet = 0;
-                get_percentage_dryness(ref wet, ref dry, ref burned);
-
             }
             break;
             case GameState.Pimping:
@@ -378,6 +370,16 @@ public class GameManager : MonoBehaviour
                         sum_increment += increment;
                     }
                     dryer.GetComponent<Dryer>().ModifyFog(sum_increment);
+
+                    float wet, dry, burned;
+                    burned = dry = wet = 0;
+                    get_percentage_dryness(ref wet, ref dry, ref burned);
+
+                    if (burned >= cookThreshold)
+                    {
+                        m_currentAnimal.Cook();
+                    }
+
                 }
                 else
                 {
@@ -640,19 +642,24 @@ public class GameManager : MonoBehaviour
     void get_percentage_dryness(ref float wet, ref float dry, ref float burned)
     {
         burned = dry = wet = 0;
+        float ripped = 0.0f;
         foreach (Fur fur in m_currentAnimal.GetFur())
         {
             int indexdry = fur.GetDryIndex();
             int indexclean = fur.GetCleanIndex();
-            if (indexclean == 1){
+            if (indexclean <= 1){
                 switch (indexdry) {
                     case 0: wet += 1; break;
                     case 1: dry += 1; break;
                     case 2: burned += 1; break;
                 }
             }
+            else
+            {
+                ripped += 1;
+            }
         }
-        float sum = wet + dry + burned;
+        float sum = wet + dry + burned + ripped;
         if (sum != 0){
             wet /= sum;
             dry /= sum;
@@ -741,7 +748,8 @@ public class GameManager : MonoBehaviour
             if (hasNegativeProp) break;
         }
         bool isPimpOk = !hasNegativeProp && (!expectsPositiveProp || hasPositiveProp);
-        Debug.Log("Clean: " + isCleanOk + " / Dry: " + isDryOk + " / Pimp: " + isPimpOk);
+        
+        Debug.Log(string.Format("Clean: {0}({1:F2}/{2:F2}/{3:F2}) / Dry: {4}({5:F2}/{6:F2}/{7:F2}) / Pimp: {8}", isCleanOk, dirty, clean, ripped, isDryOk, wet, dry, burned, isPimpOk));
 
         int score = (isCleanOk ? 1 : 0) + (isDryOk ? 1 : 0) + (isPimpOk ? 1 : 0);
         return score;
@@ -791,6 +799,14 @@ public class GameManager : MonoBehaviour
         foreach(RaycastHit2D hit in hits)
         {
             T comp = hit.transform.GetComponent<T>();
+            if (comp != null)
+            {
+                return comp;
+            }
+        }
+        foreach(RaycastHit2D hit in hits)
+        {
+            T comp = hit.transform.GetComponentInParent<T>();
             if (comp != null)
             {
                 return comp;

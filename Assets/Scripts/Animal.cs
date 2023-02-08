@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Animal : MonoBehaviour
 {
+    public Transform nude;
+    public Transform cooked;
+    public ParticleSystem fireBurst;
+
     public Fur[] GetFur()
     {
-        return GetComponentsInChildren<Fur>(); 
+        return GetComponentsInChildren<Fur>(true); 
     }
 
     // Start is called before the first frame update
@@ -19,4 +23,18 @@ public class Animal : MonoBehaviour
     {
         
     }
+
+    public void Cook()
+    {
+        nude.gameObject.SetActive(false);
+        cooked.gameObject.SetActive(true);
+
+        if (!m_hasPlayedBurst)
+        {
+            fireBurst.Play();
+            m_hasPlayedBurst = true;
+        }
+    }
+
+    bool m_hasPlayedBurst = false;
 }
